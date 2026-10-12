@@ -1,0 +1,226 @@
+/* reel.css: the short-form look (change it in STYLE-GUIDE.md). Liquid glass on the footage, sized by what each overlay needs.
+   Copied into $W/public/ by the build step. Tokens first; change the look here (and in STYLE-GUIDE.md), not per reel. */
+:root{
+  --ops-bg:#0b1420; --ops-surface:#121f2e; --ops-border:#273645;
+  --ops-accent:#2dd4bf; --ops-accent-2:#5eead4; --ops-warn:#f59e0b; --ops-danger:#ef4444;
+  --ops-text:#f8fafc; --ops-text-dim:#cbd5e1;
+  /* the glass tint: brand navy, measured against the footage's own darkest large area (the hoodie on reel-1) */
+  --glass-tint:rgba(14,24,44,.64);   /* smoked: white text needs >= 4.5:1 even over a white wall (reel-1: .40 measured 1-2.7:1) */
+  --glass-edge:rgba(255,255,255,.62);
+  --glass-r:34px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0b1420;font-family:"Inter",sans-serif}
+.mono{font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+
+/* ---------- footage ---------- */
+#video-wrap{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden}
+#video-zoom{position:absolute;inset:0;transform-origin:50% 47%;will-change:transform}
+#bg-video{position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover}
+#shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,14,26,.38) 0%,rgba(8,14,26,0) 18%,rgba(8,14,26,0) 64%,rgba(8,14,26,.50) 100%)}
+/* behind LARGE overlays only: the footage steps back (navy wash), the panel steps forward */
+#dim{position:absolute;inset:0;z-index:5;opacity:0;background:radial-gradient(120% 80% at 50% 40%,rgba(10,20,36,.30),rgba(6,12,22,.72))}
+
+.card-host{position:absolute;z-index:10}
+
+/* ---------- liquid glass ---------- */
+/* Apple-style liquid glass: a tinted, saturated blur of the footage behind, a bright specular rim on top, a soft inner
+   glow, a faint refraction wobble (Chrome renders backdrop-filter url()), and a sheen that sweeps once on entrance.
+   Never fade a .lg through an ancestor's opacity (Chrome drops backdrop-filter during the fade): reveal it with
+   clip-path (lgIn/lgOut in reel.js) and fade only the content. */
+.lg{position:relative;border-radius:var(--glass-r);overflow:hidden;isolation:isolate;color:var(--ops-text);
+  background:linear-gradient(165deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.06) 38%,rgba(255,255,255,.02) 60%,rgba(255,255,255,.10) 100%),var(--glass-tint);
+  -webkit-backdrop-filter:blur(20px) saturate(1.7) brightness(.72);
+  backdrop-filter:blur(20px) saturate(1.7) brightness(.72);
+  backdrop-filter:url(#lg-refract) blur(20px) saturate(1.7) brightness(.72);
+  box-shadow:inset 0 1.5px 0 var(--glass-edge),inset 0 -1.5px 0 rgba(255,255,255,.16),inset 1.5px 0 0 rgba(255,255,255,.24),
+             inset -1px 0 0 rgba(255,255,255,.10),inset 0 0 36px rgba(255,255,255,.06),0 0 0 1px rgba(255,255,255,.16),
+             0 22px 60px rgba(4,10,20,.38)}
+.lg::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;
+  background:radial-gradient(130% 70% at 12% -8%,rgba(255,255,255,.34),rgba(255,255,255,0) 52%),
+             radial-gradient(90% 60% at 100% 110%,rgba(45,212,191,.16),rgba(45,212,191,0) 60%)}
+.lg::after{content:"";position:absolute;top:-20%;bottom:-20%;width:42%;left:0;pointer-events:none;z-index:3;
+  background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.30) 50%,rgba(255,255,255,0) 100%);
+  transform:translateX(var(--sheen,-160%)) skewX(-12deg)}
+.lg > *{position:relative;z-index:4;text-shadow:0 1px 10px rgba(4,10,20,.45)}
+.lg.accent{box-shadow:inset 0 1.5px 0 var(--glass-edge),inset 0 0 0 1.5px rgba(45,212,191,.55),inset 0 0 40px rgba(45,212,191,.12),
+             0 0 34px rgba(45,212,191,.28),0 22px 60px rgba(4,10,20,.38)}
+.lg.warn{box-shadow:inset 0 1.5px 0 var(--glass-edge),inset 0 0 0 1.5px rgba(245,158,11,.6),0 0 30px rgba(245,158,11,.25),0 22px 60px rgba(4,10,20,.38)}
+.lg.danger{box-shadow:inset 0 1.5px 0 var(--glass-edge),inset 0 0 0 1.5px rgba(239,68,68,.6),0 0 30px rgba(239,68,68,.25),0 22px 60px rgba(4,10,20,.38)}
+.t-shadow{text-shadow:0 2px 12px rgba(4,10,20,.55)}
+
+/* ---------- sizes: the overlay takes the space its content needs, no more ----------
+   S  pills, chips, counters: beside or above the head, never on the face      (<= 560 x 132)
+   M  headline, stat, verdict, logo row, CTA: the top zone above the head      (<= 960 x top-of-face - 270)
+   L  article, diagram, window, table, pipeline, B-roll: may cover the face    (<= 880 x 1000 at left 60-70: clear of the Reels buttons, ends above the captions)
+   layout-check.mjs measures every overlay against the face box and fails an S or M that touches it. */
+.sz-s{padding:20px 30px;border-radius:999px}
+.sz-m{padding:30px 38px}
+.sz-l{padding:34px}
+
+/* S: pill */
+.pill{display:inline-flex;align-items:center;gap:16px;white-space:nowrap}
+.pill .ic{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:rgba(45,212,191,.18);box-shadow:inset 0 0 0 1.5px rgba(45,212,191,.6)}
+.pill .ic svg{width:32px;height:32px;stroke:var(--ops-accent-2);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pill.warn .ic{background:rgba(245,158,11,.18);box-shadow:inset 0 0 0 1.5px rgba(245,158,11,.65)} .pill.warn .ic svg{stroke:#fbbf24}
+.pill.danger .ic{background:rgba(239,68,68,.18);box-shadow:inset 0 0 0 1.5px rgba(239,68,68,.65)} .pill.danger .ic svg{stroke:#f87171}
+.pill .tx{font-size:44px;font-weight:800;letter-spacing:-.5px}
+.num-chip{width:132px;height:132px;border-radius:50%;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:78px;font-weight:800;color:var(--ops-accent-2)}
+
+/* M: headline card */
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:27px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--ops-accent-2)}
+.eyebrow.warn{color:#fcd34d} .eyebrow.danger{color:#fca5a5}   /* light tints of warn/danger: text on glass needs the contrast */
+.head{font-size:66px;font-weight:900;line-height:1.02;letter-spacing:-1.5px;margin-top:10px}
+.head .em{color:var(--ops-accent-2)} .head .bad{color:#fca5a5} .head .warn{color:#fcd34d}
+.sub{font-family:"JetBrains Mono",monospace;font-size:26px;color:var(--ops-text-dim);margin-top:12px}
+.row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+
+/* M: logo / tool chips with a stamp */
+.tool{position:relative;padding:16px 24px;border-radius:18px;background:rgba(255,255,255,.10);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);font-size:36px;font-weight:800}
+.stamp{position:absolute;right:-14px;top:-16px;padding:4px 10px;border-radius:8px;background:var(--ops-danger);color:#fff;
+  font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:800;letter-spacing:2px;rotate:8deg}
+
+/* M: stat */
+.stat{font-family:"JetBrains Mono",monospace;font-size:132px;font-weight:800;line-height:1;color:var(--ops-accent-2);letter-spacing:-3px}
+
+/* M: verdict stamp */
+.verdict{display:flex;align-items:center;gap:26px}
+.verdict .ring{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;font-size:66px;font-weight:900}
+.verdict.pass .ring{background:var(--ops-accent);color:#04161a} .verdict.half .ring{background:var(--ops-warn);color:#1a1200}
+.verdict.fail .ring{background:var(--ops-danger);color:#fff}
+.verdict .word{font-size:92px;font-weight:900;letter-spacing:-2px}
+
+/* M: CTA, one compact row so it sits above the head and the last line lands on the face (eye contact at the end) */
+.cta{display:flex;flex-direction:column;align-items:center;gap:10px}
+.cta .line{display:flex;align-items:center;gap:22px}
+.cta .lead{font-size:54px;font-weight:900;letter-spacing:-1px}
+.cta .kw{display:inline-block;padding:2px 30px;border-radius:22px;font-size:104px;font-weight:900;letter-spacing:-2px;line-height:1.08;
+  color:#04161a;background:linear-gradient(180deg,#5eead4,#2dd4bf);box-shadow:0 0 50px rgba(45,212,191,.5),inset 0 2px 0 rgba(255,255,255,.6)}
+.cta .what{font-family:"JetBrains Mono",monospace;font-size:28px;color:var(--ops-text-dim)}
+
+/* L: article (the real page, captured by capture-article.mjs, in a glass browser) */
+.art{padding:0;width:880px}
+.art .chrome{display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid rgba(255,255,255,.18)}
+.art .dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.35)}
+.art .url{flex:1;margin-left:10px;display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;background:rgba(4,10,20,.35);
+  font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--ops-text-dim)}
+.art .url svg{width:20px;height:20px;stroke:var(--ops-accent-2);fill:none;stroke-width:2.4}
+.art .view{position:relative;height:840px;overflow:hidden;background:#fff;margin:14px;border-radius:22px}
+.art .page{position:absolute;left:0;top:0;transform-origin:0 0}
+.art .page img{display:block}
+.art .mark{position:absolute;border-radius:6px;background:rgba(45,212,191,.42);mix-blend-mode:multiply;transform-origin:0 50%}
+.art .src{display:flex;justify-content:space-between;padding:4px 28px 22px;font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--ops-text-dim)}
+
+/* L: generic panel (diagram, window, table) */
+.panel{width:880px}
+.panel .title{font-size:52px;font-weight:900;letter-spacing:-1px}
+
+/* ---------- captions: active word lights up ---------- */
+#captions{position:absolute;left:60px;width:900px;top:1320px;height:180px;z-index:30}
+.cg{position:absolute;inset:0}
+.cg-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;text-align:center;
+  font-size:70px;font-weight:900;line-height:1.08;letter-spacing:-1px;color:#fff;
+  text-shadow:0 3px 0 rgba(8,14,26,.85),0 0 22px rgba(8,14,26,.75),0 0 3px rgba(0,0,0,.9)}
+.cg-inner .w{display:inline-block;white-space:pre}
+.cg-inner .w.em{color:var(--ops-accent-2)}
+.cg-inner .w.num{font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+.cg-inner .w.kw{color:#04161a;background:var(--ops-accent);border-radius:14px;padding:0 16px;text-shadow:none}
+
+/* series tag (S) */
+#series .pill .tx{font-family:"JetBrains Mono",monospace;font-size:26px;letter-spacing:2px;font-weight:800}
+#series .pill .n{color:var(--ops-accent-2)}
+#series .live{width:14px;height:14px;border-radius:50%;background:var(--ops-accent);box-shadow:0 0 14px rgba(45,212,191,.95)}
+/* the same live dot inside an eyebrow (a hook card that carries the topic tag, as in reel-1 v4) */
+.live-dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--ops-accent);box-shadow:0 0 14px rgba(45,212,191,.95);margin-right:14px;vertical-align:2px}
+
+/* review only: the Reels UI zones and the face box. display:block for a snapshot pass, never for the render. */
+#safe-guide{display:none;position:absolute;inset:0;z-index:99}
+#safe-guide div{position:absolute;background:rgba(239,68,68,.25);border:2px dashed #ef4444}
+#safe-guide .face{background:rgba(45,212,191,.12);border-color:#2dd4bf}
+
+/* ---------- approved components (reel-1 v3, 2026-10-07: "This video output was great") ----------
+   Built for reel-1 and kept as the house kit. Usage of each, in context: reference/reel-1-v3/index.html. */
+/* R16: amber highlighter for the stakes phrase */
+.art .mark.warn{background:rgba(245,158,11,.5)}
+/* R13 explainer: a light mock browser inside an L panel; .popup a window drawn inside it */
+.mock{position:relative;margin-top:22px;border-radius:22px;background:rgba(255,255,255,.92);overflow:hidden;box-shadow:0 10px 30px rgba(4,10,20,.25)}
+.mock .bar{display:flex;align-items:center;gap:10px;padding:14px 18px;background:#e8edf3;border-bottom:1px solid #cfd8e3}
+.mock .bar i{width:12px;height:12px;border-radius:50%;background:#b8c3d0;display:block}
+.mock .u{flex:1;margin-left:8px;padding:8px 16px;border-radius:999px;background:#fff;font-family:"JetBrains Mono",monospace;font-size:21px;color:#334155;display:flex;align-items:center;gap:10px}
+.mock .u svg{width:18px;height:18px;stroke:#16a34a;fill:none;stroke-width:2.6}
+.mock .tag{padding:3px 10px;border-radius:8px;background:var(--ops-danger);color:#fff;font-family:"JetBrains Mono",monospace;font-size:16px;font-weight:800;letter-spacing:1px}
+.mock .body{position:relative;height:500px;background:linear-gradient(180deg,#f8fafc,#eef2f7)}
+.mock .ghost{position:absolute;left:40px;right:40px;height:22px;border-radius:11px;background:#dfe6ee}
+.popup{position:absolute;left:150px;top:60px;width:560px;border-radius:16px;background:#fff;box-shadow:0 18px 50px rgba(15,23,42,.35);overflow:hidden}
+.popup .bar{background:#f1f5f9}
+.popup .signin{padding:26px 34px;font-family:"Inter",sans-serif;color:#0f172a}
+.popup .signin b{font-size:34px;font-weight:800;display:block;margin-bottom:18px}
+.popup .field{height:46px;border-radius:10px;border:2px solid #cbd5e1;margin-bottom:14px}
+.popup .btn{height:50px;border-radius:12px;background:#2563eb;width:170px;margin-left:auto}
+/* callouts on a mock: amber ring (point at a part), dashed teal outline (reveal what it really is), teal label */
+.ring{position:absolute;border-radius:14px;border:4px solid var(--ops-warn);box-shadow:0 0 24px rgba(245,158,11,.6)}
+.outline{position:absolute;border-radius:22px;border:4px dashed var(--ops-accent);box-shadow:0 0 30px rgba(45,212,191,.5)}
+.callout{position:absolute;padding:10px 20px;border-radius:12px;background:var(--ops-accent);color:#04161a;font-weight:900;font-size:30px;white-space:nowrap}
+/* R14 demo: a browser frame, windows (.win.real teal / .win.fake red), a cursor that travels with them, verdict tags */
+.drag-stage{position:relative;margin-top:22px;height:560px}
+.drag-browser{position:absolute;left:0;top:0;width:520px;height:560px;border-radius:22px;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 2px rgba(255,255,255,.45)}
+.drag-browser .label{position:absolute;left:20px;top:14px;font-family:"JetBrains Mono",monospace;font-size:20px;color:var(--ops-text-dim);letter-spacing:2px}
+.drag-page{position:absolute;left:14px;right:14px;top:54px;bottom:14px;border-radius:14px;overflow:hidden;background:rgba(4,10,20,.25)}
+.win{position:absolute;width:220px;height:140px;border-radius:14px;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-weight:800;font-size:28px}
+.win.real{background:rgba(45,212,191,.22);box-shadow:inset 0 0 0 3px var(--ops-accent);color:var(--ops-accent-2)}
+.win.fake{background:rgba(239,68,68,.22);box-shadow:inset 0 0 0 3px var(--ops-danger);color:#fca5a5}
+.cursor{position:absolute;width:46px;height:46px}
+.cursor path{fill:#fff;stroke:#0b1420;stroke-width:1.6}
+.verdict-tag{position:absolute;padding:8px 16px;border-radius:12px;font-weight:900;font-size:28px;white-space:nowrap}
+.verdict-tag.ok{background:var(--ops-accent);color:#04161a} .verdict-tag.bad{background:var(--ops-danger);color:#fff}
+/* R7 checklist rows: a teal check or a red cross, each row pops on its word */
+.check-row{display:flex;align-items:center;gap:18px;font-size:44px;font-weight:800;margin-top:14px}
+.check-row .ck{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;flex:none}
+.check-row .ck svg{width:30px;height:30px;fill:none;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.check-row .ck.ok{background:var(--ops-accent)} .check-row .ck.ok svg{stroke:#04161a}
+.check-row .ck.bad{background:var(--ops-danger)} .check-row .ck.bad svg{stroke:#fff}
+/* R5 a row of S pills above the head (the row as a whole is an M host) */
+.pills{display:flex;flex-wrap:wrap;gap:16px 16px}
+.pills .pill .tx{font-size:40px}
+
+/* ---------- R19 tool chat window + R20 app-tile pipeline (aotw-01 v4, 2026-10-11) ----------
+   Markup and tweens: reference/aotw-01-v4/index.html (#step1 = R19, #sop and #step2 = R20). The spark: img/claude-logo.png
+   (add the logo yourself: see README.md, it is not shipped). The chat window is light (#faf9f5), like the Claude app, inside the glass. */
+
+.spark{width:34px;height:auto;display:inline-block;vertical-align:middle}
+#hook .spark.hk{width:56px;margin-right:-6px}
+.pipe{display:flex;align-items:center;margin-top:14px}
+.fcard{display:flex;align-items:center;gap:16px;padding:12px 18px 12px 12px;border-radius:20px;background:rgba(255,255,255,.10);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.26);flex:none}
+.fcard img{width:78px;height:104px;border-radius:12px;object-fit:cover;display:block}
+.fcard .doc{width:78px;height:78px;border-radius:16px;display:grid;place-items:center;background:rgba(45,212,191,.16);box-shadow:inset 0 0 0 1.5px rgba(45,212,191,.6)}
+.fcard .doc svg{width:42px;height:42px;fill:none;stroke:var(--ops-accent-2);stroke-width:2;stroke-linejoin:round}
+.fcard .fn{font-size:34px;font-weight:800;letter-spacing:-.5px;white-space:nowrap}
+.dur{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:10px;font-family:"JetBrains Mono",monospace;font-size:22px;font-weight:700;letter-spacing:1px;background:rgba(4,10,20,.5);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25);white-space:nowrap}
+.wire{position:relative;flex:1;min-width:40px;height:3px;margin:0 14px 0 6px;background:linear-gradient(90deg,rgba(255,255,255,.25),rgba(255,255,255,.9));transform-origin:0 50%}
+.wire::after{content:"";position:absolute;right:-7px;top:-6px;width:15px;height:15px;border-radius:50%;background:#fff;box-shadow:0 0 12px rgba(255,255,255,.8)}
+.ctile{width:104px;height:104px;border-radius:26px;background:#fff;display:grid;place-items:center;box-shadow:0 10px 28px rgba(4,10,20,.35);flex:none}
+.ctile img{width:70px;height:auto}
+.out{display:flex;flex-direction:column;align-items:center;flex:none}
+.out .big{font-size:64px;font-weight:800;line-height:1;color:var(--ops-accent-2)}
+.out .dur{margin-top:6px;color:var(--ops-accent-2);box-shadow:inset 0 0 0 1.5px rgba(45,212,191,.6)}
+
+.cw{margin-top:18px;border-radius:24px;background:#faf9f5;color:#2b2a27;overflow:hidden;box-shadow:0 12px 34px rgba(4,10,20,.35);padding:16px 20px 20px}
+.lg .cw *{text-shadow:none}
+.cw-top{display:flex;align-items:center;gap:10px;font-size:26px;padding-bottom:12px;border-bottom:1px solid #e8e5dc}
+.cw-top .spark{width:30px}
+.cw-hi{display:flex;align-items:center;justify-content:center;gap:14px;font-size:36px;font-weight:600;color:#3d3929;margin:26px 0 22px}
+.cw-hi .spark{width:44px}
+.cw-box{border-radius:22px;background:#fff;box-shadow:0 0 0 1.5px #e3dfd3,0 6px 18px rgba(60,50,30,.10);padding:14px}
+.cw-att{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.cw-att .tk{position:relative;width:auto;height:150px;border-radius:12px;overflow:hidden;box-shadow:0 0 0 1.5px #e3dfd3}
+.cw-att .tk img{width:100%;height:100%;object-fit:cover;display:block}
+.cw-att .tg{position:absolute;left:6px;bottom:6px;padding:3px 9px;border-radius:8px;font-family:"JetBrains Mono",monospace;font-size:17px;font-weight:800;opacity:0}
+.cw-att .tg.re{background:var(--ops-warn);color:#1a1200}
+.cw-att .tg.fl{background:var(--ops-danger);color:#fff}
+.cw-line{display:flex;align-items:center;gap:6px;margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:30px;font-weight:700;color:#c15f3c;min-height:44px}
+.caret{width:3px;height:34px;background:#2b2a27}
+.cw-n{margin-left:auto;font-size:22px;color:#6b6656;font-weight:700}
+.cw-bot{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.cw-bot .plus{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:30px;color:#6b6656;box-shadow:inset 0 0 0 1.5px #e3dfd3}
+.cw-bot .send{width:50px;height:50px;border-radius:14px;background:#d97757;display:grid;place-items:center}
+.cw-bot .send svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}

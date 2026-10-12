@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>AOTW 1 v4 - Claude edited this reel (approved 2026-10-11)</title>
+<link rel="stylesheet" href="reel.css">
+<script src="gsap.min.js"></script>
+<script src="reel.js"></script>
+<style>
+/* aotw-01-ops-sop overrides on top of reel.css */
+:root{--glass-tint:rgba(22,32,50,.64)}   /* navy hoodie rgb(45,58,76), hue 214, darkened */
+
+/* hook: one row that flips from "me: 0" to "Claude: ALL" */
+#hook .hrow{position:relative;height:84px;width:820px}
+#hook .hrow > div{position:absolute;left:0;top:0;display:flex;align-items:center;gap:24px;white-space:nowrap}
+#hook .lab{font-size:56px;font-weight:900;letter-spacing:-1px}
+#hook .val{font-family:"JetBrains Mono",monospace;font-size:72px;font-weight:800;line-height:1;padding:2px 22px;border-radius:18px}
+#hook .val.zero{color:#fca5a5;box-shadow:inset 0 0 0 3px rgba(239,68,68,.7)}
+#hook .val.all{color:#04161a;background:var(--ops-accent)}
+#hk-cl{opacity:0}
+.rrw{position:relative;height:84px}
+.rrw .rr{position:absolute;left:0;top:0;margin-top:8px}
+#rr-b{opacity:0}
+
+/* step 1: the real takes */
+.takes{display:grid;grid-template-columns:repeat(4,192px);gap:14px;margin-top:20px}
+.tk{position:relative;width:192px;height:256px;border-radius:16px;overflow:hidden;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.28)}
+.tk img{display:block;width:192px;height:256px;object-fit:cover}
+.tk .nm{position:absolute;left:8px;top:8px;padding:2px 8px;border-radius:8px;background:rgba(4,10,20,.6);font-family:"JetBrains Mono",monospace;font-size:17px;color:#e2e8f0}
+.tk .tg{position:absolute;left:8px;bottom:8px;padding:4px 12px;border-radius:9px;font-family:"JetBrains Mono",monospace;font-size:20px;font-weight:800;opacity:0}
+.tk .tg.re{background:var(--ops-warn);color:#1a1200}
+.tk .tg.fl{background:var(--ops-danger);color:#fff}
+.bigcount{font-family:"JetBrains Mono",monospace;color:var(--ops-accent-2)}
+
+/* step 2: raw -> reel */
+.rr{display:flex;align-items:center;gap:22px;margin-top:8px}
+.rr .t{font-family:"JetBrains Mono",monospace;font-size:72px;font-weight:800;line-height:1}
+.rr .t.raw{color:#fcd34d} .rr .t.reel{color:var(--ops-accent-2)}
+.rr .u{font-family:"JetBrains Mono",monospace;font-size:24px;color:var(--ops-text-dim);margin-left:-12px;align-self:flex-end;margin-bottom:6px}
+.rr .ar{font-size:56px;font-weight:900;color:var(--ops-text-dim)}
+
+/* frame check */
+.qc{display:flex;gap:34px;margin-top:22px;align-items:flex-start}
+.phone{position:relative;width:330px;height:587px;border-radius:26px;overflow:hidden;box-shadow:0 0 0 6px rgba(4,10,20,.75),0 0 0 7.5px rgba(255,255,255,.3)}
+.phone img{display:block;width:330px;height:587px}
+.phone .z{position:absolute;background:rgba(239,68,68,.32);border:2px dashed #f87171;opacity:0}
+.phone .fb{position:absolute;border:3px solid var(--ops-accent);border-radius:12px;background:rgba(45,212,191,.12);opacity:0}
+.qcl{flex:1;padding-top:10px}
+.qcl .check-row{font-size:38px;margin-top:22px}
+.qcl .zone-key{display:flex;align-items:center;gap:14px;font-family:"JetBrains Mono",monospace;font-size:24px;color:#fca5a5;margin-top:8px}
+.qcl .zone-key i{width:30px;height:20px;border:2px dashed #f87171;background:rgba(239,68,68,.32);display:block}
+
+/* follow button */
+#follow .pill .tx{font-size:40px}
+#follow .fw{position:relative;display:inline-block;width:236px;height:50px;font-size:40px;font-weight:800}
+#follow .fw span{position:absolute;left:0;top:0;white-space:nowrap}
+#fw-on{opacity:0;color:var(--ops-accent-2)}
+
+/* R19/R20 (chat window, app-tile pipeline): now in reel.css */
+</style>
+</head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lg-refract" x="0" y="0" width="100%" height="100%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<div id="reel" data-composition-id="reel" data-start="0" data-duration="31.56"
+     data-fps="60" data-width="1080" data-height="1920" data-face="130,570,570,815">
+
+  <div id="video-wrap">
+    <div id="video-zoom">
+      <video id="bg-video" src="input-video.mp4" playsinline data-has-audio="true"
+             data-start="0" data-duration="31.56" data-track-index="1"></video>
+    </div>
+    <div id="shade"></div>
+  </div>
+  <div id="dim"></div>
+
+  <!-- S: series tag, top-left, first ~3 s (deliberately unanchored) -->
+  <div id="series" class="card-host clip" data-unanchored data-size="s" data-start="0.15" data-duration="2.94" data-track-index="2" style="left:60px;top:262px">
+    <div class="lg sz-s pill"><span class="live" data-c></span><span class="tx" data-c>AUTOMATION OF THE WEEK <span class="n">#1</span></span></div>
+  </div>
+
+  <!-- BEATS:START -->
+  <!-- 0.10 M hook: one row, "me: 0" flips to "Claude: ALL" on "Claude did" -->
+  <div id="hook" class="card-host clip" data-anchor="I didn't edit a single frame" data-size="m" data-start="0.10" data-duration="3.45" data-track-index="3" style="left:60px;top:352px;width:960px">
+    <div class="lg sz-m"><span data-c></span>
+      <div class="hrow">
+        <div id="hk-me"><span class="lab">Edits by me</span><span class="val zero">0</span></div>
+        <div id="hk-cl"><img class="spark hk" src="img/claude-logo.png" alt=""><span class="lab">Edits by Claude</span><span class="val all">ALL</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.30 S "not an editor" -->
+  <div id="noted" class="card-host clip" data-anchor="editor" data-size="s" data-start="3.60" data-duration="0.88" data-track-index="6" style="left:60px;top:300px">
+    <div class="lg sz-s pill danger"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="tx">Not an editor</span></div>
+  </div>
+
+  <!-- M the SOP: SKILL.md wired into Claude -->
+  <div id="sop" class="card-host clip" data-anchor="I wrote Claude an SOP" data-size="m" data-start="4.50" data-duration="1.33" data-track-index="3" style="left:60px;top:290px;width:960px">
+    <div class="lg sz-m accent"><div class="eyebrow" data-c>My SOP for Claude</div>
+      <div class="pipe"><span data-c></span>
+        <div class="fcard" id="sop-f"><span class="doc"><svg viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v4h4M9 12h6M9 16h6"/></svg></span><div><div class="fn mono">SKILL.md</div><span class="dur">601-LINE SOP</span></div></div>
+        <div class="wire" id="sop-w"></div>
+        <div id="sop-t"><div class="ctile"><img src="img/claude-logo.png" alt="Claude"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L step 1: a Claude chat window, the skill typed in the box, the real takes dropped in -->
+  <div id="step1" class="card-host clip" data-anchor="step one, I drop in my raw takes" data-size="l" data-start="5.96" data-duration="3.40" data-track-index="4" style="left:70px;top:262px">
+    <div class="lg sz-l panel">
+      <div class="eyebrow" data-c>Step 1 · drop in</div>
+      <div class="cw" data-c>
+        <div class="cw-top"><img class="spark" src="img/claude-logo.png" alt=""><b>Claude</b></div>
+        <div class="cw-hi"><img class="spark" src="img/claude-logo.png" alt=""><span>How can I help you today?</span></div>
+        <div class="cw-box">
+          <div class="cw-att">
+          <div class="tk" id="at1"><img src="img/takes/IMG_0083.jpg" alt=""><span class="tg re" id="tg1">retake</span></div>
+          <div class="tk" id="at2"><img src="img/takes/IMG_0087.jpg" alt=""><span class="tg fl" id="tg5">flub</span></div>
+          <div class="tk" id="at3"><img src="img/takes/IMG_0091.jpg" alt=""><span class="tg re" id="tg2">retake</span></div>
+          <div class="tk" id="at4"><img src="img/takes/IMG_0094.jpg" alt=""></div>
+          <div class="tk" id="at5"><img src="img/takes/IMG_0099.jpg" alt=""><span class="tg fl" id="tg6">flub</span></div>
+          <div class="tk" id="at6"><img src="img/takes/IMG_0100.jpg" alt=""><span class="tg re" id="tg3">retake</span></div>
+          <div class="tk" id="at7"><img src="img/takes/IMG_0102.jpg" alt=""></div>
+          <div class="tk" id="at8"><img src="img/takes/IMG_0106.jpg" alt=""><span class="tg fl" id="tg7">flub</span></div>
+          <div class="tk" id="at9"><img src="img/takes/IMG_0108.jpg" alt=""><span class="tg re" id="tg4">retake</span></div>
+          <div class="tk" id="at10"><img src="img/takes/IMG_0112.jpg" alt=""></div>
+          <div class="tk" id="at11"><img src="img/takes/IMG_0118.jpg" alt=""></div>
+          <div class="tk" id="at12"><img src="img/takes/IMG_0121.jpg" alt=""><span class="tg fl" id="tg8">flub</span></div>
+          </div>
+          <div class="cw-line"><span class="cw-cmd" id="cw-cmd" data-text="/short-form-video-edit">/short-form-video-edit</span><span class="caret"></span><span class="cw-n" id="cw-n-wrap"><span id="cw-n">42</span> clips</span></div>
+          <div class="cw-bot"><span class="plus">+</span><span class="send" id="cw-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M step 2: raw in, edit out -->
+  <div id="step2" class="card-host clip" data-anchor="step two, it picks the best take" data-size="m" data-start="9.50" data-duration="3.60" data-track-index="3" style="left:60px;top:290px;width:960px">
+    <div class="lg sz-m"><div class="eyebrow" data-c>Step 2 · pick + cut</div>
+      <div class="pipe"><span data-c></span>
+        <div class="fcard" id="s2-f"><img src="img/takes/IMG_0124.jpg" alt=""><div><div class="fn">10 of 42 takes</div><span class="dur">1:01 RAW</span></div></div>
+        <div class="wire" id="s2-w1"></div>
+        <div id="s2-t"><div class="ctile"><img src="img/claude-logo.png" alt="Claude"></div></div>
+        <div class="wire" id="s2-w2"></div>
+        <div class="out" id="s2-o"><span class="big mono">0:31</span><span class="dur">REEL</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12.60 S number chip "3" beside the head -->
+  <div id="three" class="card-host clip" data-anchor="step three" data-size="s" data-start="12.64" data-duration="0.98" data-track-index="2" style="left:800px;top:560px">
+    <div class="lg sz-s num-chip accent">3</div>
+  </div>
+
+  <!-- 13.66 M captions + cards, timed to the word -->
+  <div id="step3" class="card-host clip" data-anchor="captions and these graphics" data-size="m" data-start="13.68" data-duration="3.48" data-track-index="3" style="left:60px;top:290px;width:960px">
+    <div class="lg sz-m accent"><div class="eyebrow" data-c>Built by Claude</div>
+      <div class="head"><span data-c></span>Captions <span class="em" id="s3-cards" style="display:inline-block">+ these cards</span></div>
+      <div class="sub" id="s3-sub">timed to the exact word</div>
+    </div>
+  </div>
+
+  <!-- 17.26 M quality gates -->
+  <div id="gates" class="card-host clip" data-anchor="before it hands anything back" data-size="m" data-start="17.28" data-duration="2.53" data-track-index="3" style="left:60px;top:290px;width:960px">
+    <div class="lg sz-m warn"><div class="eyebrow warn" data-c>Before it hands it back</div><div class="head" data-c>Quality <span class="warn" id="g-gates" style="display:inline-block">gates</span></div></div>
+  </div>
+
+  <!-- 19.92 L frame check: Reels UI zones and the face, on this reel's own frame -->
+  <div id="qc" class="card-host clip" data-anchor="it checks every frame" data-size="l" data-start="19.94" data-duration="3.60" data-track-index="4" style="left:70px;top:262px">
+    <div class="lg sz-l panel">
+      <div class="eyebrow" data-c>Every frame · every 0.1 s</div>
+      <div class="qc" data-c>
+        <div class="phone"><img src="img/qc-frame.jpg" alt="">
+          <div class="z" id="z1" style="left:0;top:0;width:330px;height:76px"></div>
+          <div class="z" id="z2" style="left:293px;top:306px;width:37px;height:152px"></div>
+          <div class="z" id="z3" style="left:0;top:458px;width:330px;height:129px"></div>
+          <div class="fb" id="fb" style="left:40px;top:174px;width:174px;height:249px"></div>
+        </div>
+        <div class="qcl">
+          <div class="zone-key" id="qk"><i></i>Instagram UI</div>
+          <div class="check-row" id="q1"><span class="ck ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Face clear</div>
+          <div class="check-row" id="q2"><span class="ck ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Buttons clear</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 23.64 M what it could not check -->
+  <div id="report" class="card-host clip" data-anchor="then it tells me what it couldn't check" data-size="m" data-start="23.68" data-duration="1.98" data-track-index="3" style="left:60px;top:290px;width:960px">
+    <div class="lg sz-m"><span data-c></span>
+      <div class="check-row" id="r1" style="margin-top:0"><span class="ck ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Every frame checked</div>
+      <div class="check-row" id="r2"><span class="ck bad"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Can't hear the audio</div>
+    </div>
+  </div>
+
+  <!-- 25.20 S share -->
+  <div id="send" class="card-host clip" data-anchor="friend" data-size="s" data-start="25.70" data-duration="2.12" data-track-index="2" style="left:60px;top:300px">
+    <div class="lg sz-s pill"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></svg></span><span class="tx">Send to a friend</span></div>
+  </div>
+
+  <!-- 28.08 S follow button beside the head -->
+  <div id="follow" class="card-host clip" data-anchor="follow" data-size="s" data-start="28.30" data-duration="3.26" data-track-index="2" style="left:756px;top:560px">
+    <div class="lg sz-s pill accent" style="padding:16px 24px"><span class="fw" data-c><span id="fw-off">+ Follow</span><span id="fw-on">Following ✓</span></span></div>
+  </div>
+  <!-- BEATS:END -->
+
+  <!-- M: CTA, last seconds -->
+  <div id="cta" class="card-host clip" data-anchor="comment" data-keyword="SKILL" data-size="m" data-start="28.72" data-duration="2.84" data-track-index="5" style="left:90px;top:280px;width:900px">
+    <div class="lg sz-m accent cta"><div class="line" data-c><span class="lead">Comment</span><span class="kw">SKILL</span></div><div class="what" data-c>the exact skill · free</div></div>
+  </div>
+
+  <div id="captions" style="top:1360px">
+<!-- CAPTIONS:START -->
+  <div id="cg-0" class="cg clip" data-start="0.12" data-duration="0.78" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-0-0">I </span><span class="w" id="cw-0-1">didn't </span><span class="w" id="cw-0-2">edit</span></div></div>
+  <div id="cg-1" class="cg clip" data-start="0.9" data-duration="0.98" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-1-0">a </span><span class="w" id="cw-1-1">single </span><span class="w" id="cw-1-2">frame</span></div></div>
+  <div id="cg-2" class="cg clip" data-start="1.88" data-duration="0.64" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-2-0">in </span><span class="w" id="cw-2-1">this </span><span class="w" id="cw-2-2">reel</span></div></div>
+  <div id="cg-3" class="cg clip" data-start="2.52" data-duration="0.7" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-3-0">Claude </span><span class="w" id="cw-3-1">did</span></div></div>
+  <div id="cg-4" class="cg clip" data-start="3.22" data-duration="0.4" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-4-0">I'm </span><span class="w" id="cw-4-1">not </span><span class="w" id="cw-4-2">an</span></div></div>
+  <div id="cg-5" class="cg clip" data-start="3.62" data-duration="0.66" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-5-0">editor</span></div></div>
+  <div id="cg-6" class="cg clip" data-start="4.28" data-duration="0.48" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-6-0">so </span><span class="w" id="cw-6-1">I </span><span class="w" id="cw-6-2">wrote</span></div></div>
+  <div id="cg-7" class="cg clip" data-start="4.76" data-duration="1.16" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-7-0">Claude </span><span class="w" id="cw-7-1">an </span><span class="w em" id="cw-7-2">SOP</span></div></div>
+  <div id="cg-8" class="cg clip" data-start="5.92" data-duration="0.64" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-8-0">Step </span><span class="w" id="cw-8-1">one</span></div></div>
+  <div id="cg-9" class="cg clip" data-start="6.56" data-duration="0.44" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-9-0">I </span><span class="w" id="cw-9-1">drop </span><span class="w" id="cw-9-2">in</span></div></div>
+  <div id="cg-10" class="cg clip" data-start="7" data-duration="0.8" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-10-0">my </span><span class="w em" id="cw-10-1">raw </span><span class="w" id="cw-10-2">takes</span></div></div>
+  <div id="cg-11" class="cg clip" data-start="7.8" data-duration="0.76" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-11-0">every </span><span class="w" id="cw-11-1">retake</span></div></div>
+  <div id="cg-12" class="cg clip" data-start="8.56" data-duration="0.9" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-12-0">every </span><span class="w" id="cw-12-1">mess-up</span></div></div>
+  <div id="cg-13" class="cg clip" data-start="9.46" data-duration="0.54" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-13-0">Step </span><span class="w" id="cw-13-1">two</span></div></div>
+  <div id="cg-14" class="cg clip" data-start="10" data-duration="0.4" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-14-0">it </span><span class="w" id="cw-14-1">picks </span><span class="w" id="cw-14-2">the</span></div></div>
+  <div id="cg-15" class="cg clip" data-start="10.4" data-duration="0.52" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-15-0">best </span><span class="w" id="cw-15-1">take </span><span class="w" id="cw-15-2">of</span></div></div>
+  <div id="cg-16" class="cg clip" data-start="10.92" data-duration="0.74" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-16-0">every </span><span class="w" id="cw-16-1">line </span><span class="w" id="cw-16-2">and</span></div></div>
+  <div id="cg-17" class="cg clip" data-start="11.66" data-duration="0.54" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-17-0">cuts </span><span class="w" id="cw-17-1">the </span><span class="w" id="cw-17-2">dead</span></div></div>
+  <div id="cg-18" class="cg clip" data-start="12.2" data-duration="0.38" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-18-0">air</span></div></div>
+  <div id="cg-19" class="cg clip" data-start="12.58" data-duration="0.56" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-19-0">Step </span><span class="w" id="cw-19-1">three</span></div></div>
+  <div id="cg-20" class="cg clip" data-start="13.14" data-duration="0.5" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-20-0">it </span><span class="w" id="cw-20-1">builds </span><span class="w" id="cw-20-2">the</span></div></div>
+  <div id="cg-21" class="cg clip" data-start="13.64" data-duration="1.04" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-21-0">captions </span><span class="w" id="cw-21-1">and </span><span class="w" id="cw-21-2">these</span></div></div>
+  <div id="cg-22" class="cg clip" data-start="14.68" data-duration="0.96" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-22-0">graphics </span><span class="w" id="cw-22-1">timed </span><span class="w" id="cw-22-2">to</span></div></div>
+  <div id="cg-23" class="cg clip" data-start="15.64" data-duration="1.01" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-23-0">the </span><span class="w" id="cw-23-1">exact </span><span class="w" id="cw-23-2">word</span></div></div>
+  <div id="cg-24" class="cg clip" data-start="16.68" data-duration="0.56" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-24-0">I </span><span class="w" id="cw-24-1">say</span></div></div>
+  <div id="cg-25" class="cg clip" data-start="17.24" data-duration="0.6" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-25-0">Before </span><span class="w" id="cw-25-1">it </span><span class="w" id="cw-25-2">hands</span></div></div>
+  <div id="cg-26" class="cg clip" data-start="17.84" data-duration="0.74" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-26-0">anything </span><span class="w" id="cw-26-1">back</span></div></div>
+  <div id="cg-27" class="cg clip" data-start="18.58" data-duration="0.76" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-27-0">it </span><span class="w" id="cw-27-1">runs </span><span class="w em" id="cw-27-2">quality</span></div></div>
+  <div id="cg-28" class="cg clip" data-start="19.34" data-duration="0.56" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-28-0">checks</span></div></div>
+  <div id="cg-29" class="cg clip" data-start="19.9" data-duration="0.64" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-29-0">It </span><span class="w em" id="cw-29-1">checks </span><span class="w" id="cw-29-2">every</span></div></div>
+  <div id="cg-30" class="cg clip" data-start="20.54" data-duration="0.74" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-30-0">frame </span><span class="w" id="cw-30-1">so </span><span class="w" id="cw-30-2">nothing</span></div></div>
+  <div id="cg-31" class="cg clip" data-start="21.28" data-duration="0.52" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-31-0">lands </span><span class="w" id="cw-31-1">on </span><span class="w" id="cw-31-2">my</span></div></div>
+  <div id="cg-32" class="cg clip" data-start="21.8" data-duration="0.78" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-32-0">face </span><span class="w" id="cw-32-1">or </span><span class="w" id="cw-32-2">on</span></div></div>
+  <div id="cg-33" class="cg clip" data-start="22.58" data-duration="1.06" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-33-0">the </span><span class="w" id="cw-33-1">Instagram </span><span class="w" id="cw-33-2">buttons</span></div></div>
+  <div id="cg-34" class="cg clip" data-start="23.64" data-duration="0.42" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-34-0">Then </span><span class="w" id="cw-34-1">it </span><span class="w" id="cw-34-2">tells</span></div></div>
+  <div id="cg-35" class="cg clip" data-start="24.06" data-duration="0.4" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-35-0">me </span><span class="w" id="cw-35-1">what </span><span class="w" id="cw-35-2">it</span></div></div>
+  <div id="cg-36" class="cg clip" data-start="24.46" data-duration="0.74" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-36-0">couldn't </span><span class="w" id="cw-36-1">check</span></div></div>
+  <div id="cg-37" class="cg clip" data-start="25.2" data-duration="0.4" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-37-0">Send </span><span class="w" id="cw-37-1">this </span><span class="w" id="cw-37-2">to</span></div></div>
+  <div id="cg-38" class="cg clip" data-start="25.6" data-duration="0.46" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-38-0">a </span><span class="w" id="cw-38-1">friend </span><span class="w" id="cw-38-2">who</span></div></div>
+  <div id="cg-39" class="cg clip" data-start="26.06" data-duration="0.74" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-39-0">still </span><span class="w" id="cw-39-1">edits </span><span class="w" id="cw-39-2">every</span></div></div>
+  <div id="cg-40" class="cg clip" data-start="26.8" data-duration="1.14" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-40-0">reel </span><span class="w" id="cw-40-1">by </span><span class="w" id="cw-40-2">hand</span></div></div>
+  <div id="cg-41" class="cg clip" data-start="27.94" data-duration="0.36" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-41-0">Drop </span><span class="w" id="cw-41-1">me </span><span class="w" id="cw-41-2">a</span></div></div>
+  <div id="cg-42" class="cg clip" data-start="28.3" data-duration="0.7" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-42-0">follow </span><span class="w" id="cw-42-1">and </span><span class="w" id="cw-42-2">comment</span></div></div>
+  <div id="cg-43" class="cg clip" data-start="29" data-duration="0.34" data-track-index="20"><div class="cg-inner"><span class="w kw" id="cw-43-0">SKILL</span></div></div>
+  <div id="cg-44" class="cg clip" data-start="29.34" data-duration="0.52" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-44-0">and </span><span class="w" id="cw-44-1">I'll </span><span class="w" id="cw-44-2">send</span></div></div>
+  <div id="cg-45" class="cg clip" data-start="29.86" data-duration="0.6" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-45-0">you </span><span class="w" id="cw-45-1">the </span><span class="w" id="cw-45-2">exact</span></div></div>
+  <div id="cg-46" class="cg clip" data-start="30.46" data-duration="0.6" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-46-0">one </span><span class="w" id="cw-46-1">I </span><span class="w" id="cw-46-2">use</span></div></div>
+  <div id="cg-47" class="cg clip" data-start="31.06" data-duration="0.67" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-47-0">for </span><span class="w em" id="cw-47-1">free</span></div></div>
+<!-- CAPTIONS:END -->
+  </div>
+
+  <div id="safe-guide"><div style="left:0;top:0;width:1080px;height:250px"></div><div style="left:0;top:1500px;width:1080px;height:420px"></div>
+    <div style="left:960px;top:1000px;width:120px;height:500px"></div><div class="face" id="face-guide"></div></div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+const { lgIn, lgOut, pop, dim, mark, pageTo, camSet, punch, creep, count, type } = reelKit(tl);
+const D = 31.56;
+camSet(0, 1.0);
+lgIn('#series .lg', 0.15);
+lgOut('#series .lg', 3.09);
+
+/* BEATS:START */
+// camera: a reframe only where a new take starts (9 hard joins), 1.00 <-> 1.08; the 10 dissolves inside a take get none
+camSet(3.120, 1.08); camSet(5.853, 1.00); camSet(9.370, 1.08); camSet(12.503, 1.00); camSet(17.186, 1.08); camSet(19.836, 1.00); camSet(23.570, 1.08); camSet(25.136, 1.00); camSet(27.870, 1.08);
+
+// hook
+lgIn('#hook .lg', 0.10);
+pop('#hk-me', 0.20, { y: 10, scale: 0.96 });
+pop('#hk-me .val', 1.44, { scale: 1.5, y: 0 });
+tl.to('#hk-me', { opacity: 0, y: -16, duration: 0.16, ease: 'power2.in' }, 2.42);
+pop('#hk-cl', 2.56, { y: 16, scale: 0.94 });
+pop('#hk-cl .val', 2.72, { scale: 1.45, y: 0 });
+lgOut('#hook .lg', 3.55);
+
+// line 2
+lgIn('#noted .lg', 3.60); lgOut('#noted .lg', 4.48);
+lgIn('#sop .lg', 4.50);
+pop('#sop-f', 4.66, { x: -16, scale: 0.96 });
+tl.fromTo('#sop-w', { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.inOut' }, 4.56);
+pop('#sop-t', 4.80, { scale: 0.6, y: 0 });
+tl.to('#video-zoom', { scale: 1.11, duration: 0.7, ease: 'sine.inOut' }, 5.15);
+lgOut('#sop .lg', 5.83);
+
+// step 1 (L)
+dim(5.96, 9.36);
+lgIn('#step1 .lg', 5.96);
+type('#cw-cmd', 6.26, 34);
+pop('#at1', 6.68, { y: -40, scale: 0.8 }); pop('#at2', 6.72, { y: -40, scale: 0.8 }); pop('#at3', 6.76, { y: -40, scale: 0.8 }); pop('#at4', 6.80, { y: -40, scale: 0.8 }); pop('#at5', 6.84, { y: -40, scale: 0.8 }); pop('#at6', 6.88, { y: -40, scale: 0.8 }); pop('#at7', 6.92, { y: -40, scale: 0.8 }); pop('#at8', 6.96, { y: -40, scale: 0.8 }); pop('#at9', 7.00, { y: -40, scale: 0.8 }); pop('#at10', 7.04, { y: -40, scale: 0.8 }); pop('#at11', 7.08, { y: -40, scale: 0.8 }); pop('#at12', 7.12, { y: -40, scale: 0.8 });
+pop('#cw-n-wrap', 6.68, { y: 6 }); count('#cw-n', 6.68, 42, 0.8);
+pop('#tg1', 8.04); pop('#tg2', 8.10); pop('#tg3', 8.16); pop('#tg4', 8.22);
+pop('#tg5', 8.80); pop('#tg6', 8.86); pop('#tg7', 8.92); pop('#tg8', 8.98);
+tl.to('#cw-send', { scale: 0.84, duration: 0.1, yoyo: true, repeat: 1, ease: 'power2.inOut' }, 8.81);
+lgOut('#step1 .lg', 9.36);
+
+// step 2 (M)
+lgIn('#step2 .lg', 9.50);
+pop('#s2-f', 9.80, { x: -16, scale: 0.96 });
+tl.fromTo('#s2-w1', { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.inOut' }, 10.14);
+pop('#s2-t', 10.44, { scale: 0.6, y: 0 });
+tl.fromTo('#s2-w2', { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.inOut' }, 11.20);
+pop('#s2-o', 11.70, { scale: 1.3, y: 0 });
+lgOut('#step2 .lg', 13.10);
+
+// step 3
+lgIn('#three .lg', 12.64); lgOut('#three .lg', 13.62);
+lgIn('#step3 .lg', 13.68);
+pop('#s3-cards', 14.54, { scale: 1.2, y: 0 });
+pop('#s3-sub', 15.76, { y: 10 });
+lgOut('#step3 .lg', 17.16);
+
+// quality gates
+lgIn('#gates .lg', 17.28);
+pop('#g-gates', 19.06, { scale: 1.3, y: 0 }); tl.to('#video-zoom', { scale: 1.11, duration: 0.7, ease: 'sine.inOut' }, 18.81);
+lgOut('#gates .lg', 19.81);
+
+// frame check (L)
+dim(19.94, 23.54);
+lgIn('#qc .lg', 19.94);
+pop('#z1', 20.36, { scale: 1 }); pop('#z2', 20.44, { scale: 1 }); pop('#z3', 20.52, { scale: 1 }); pop('#qk', 20.60, { x: -12 });
+pop('#fb', 21.84, { scale: 1.08 }); pop('#q1', 21.88, { x: -20 });
+pop('#q2', 22.68, { x: -20 });
+lgOut('#qc .lg', 23.54);
+
+// what it could not check
+lgIn('#report .lg', 23.68, { stagger: 0 });
+pop('#r1', 23.88, { x: -20 });
+pop('#r2', 24.24, { x: -20 });
+lgOut('#report .lg', 25.66);
+
+// share + follow
+lgIn('#send .lg', 25.70); lgOut('#send .lg', 27.82);
+lgIn('#follow .lg', 28.30);
+tl.to('#fw-off', { opacity: 0, duration: 0.12 }, 28.62); tl.set('#fw-off', { opacity: 0 }, 28.75);
+pop('#fw-on', 28.64, { y: 8, scale: 0.9 });
+/* BEATS:END */
+
+lgIn('#cta .lg', 28.72);
+
+/* CAPTIONS:START */
+tl.fromTo('#cg-0 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},0.12);
+tl.fromTo('#cw-0-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},0.16);tl.to('#cw-0-0',{color:'#ffffff',duration:0.08},0.24);
+tl.fromTo('#cw-0-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},0.24);tl.to('#cw-0-1',{color:'#ffffff',duration:0.08},0.52);
+tl.fromTo('#cw-0-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},0.52);tl.to('#cw-0-2',{color:'#ffffff',duration:0.08},0.9);
+tl.fromTo('#cg-1 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},0.9);
+tl.fromTo('#cw-1-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},0.94);tl.to('#cw-1-0',{color:'#ffffff',duration:0.08},1.06);
+tl.fromTo('#cw-1-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},1.06);tl.to('#cw-1-1',{color:'#ffffff',duration:0.08},1.44);
+tl.fromTo('#cw-1-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},1.44);tl.to('#cw-1-2',{color:'#ffffff',duration:0.08},1.88);
+tl.fromTo('#cg-2 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},1.88);
+tl.fromTo('#cw-2-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},1.92);tl.to('#cw-2-0',{color:'#ffffff',duration:0.08},2.02);
+tl.fromTo('#cw-2-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},2.02);tl.to('#cw-2-1',{color:'#ffffff',duration:0.08},2.22);
+tl.fromTo('#cw-2-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},2.22);tl.to('#cw-2-2',{color:'#ffffff',duration:0.08},2.52);
+tl.fromTo('#cg-3 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},2.52);
+tl.fromTo('#cw-3-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},2.82);tl.to('#cw-3-1',{color:'#ffffff',duration:0.08},3.22);
+tl.fromTo('#cg-4 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},3.22);
+tl.fromTo('#cw-4-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},3.26);tl.to('#cw-4-0',{color:'#ffffff',duration:0.08},3.36);
+tl.fromTo('#cw-4-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},3.36);tl.to('#cw-4-1',{color:'#ffffff',duration:0.08},3.54);
+tl.fromTo('#cw-4-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},3.54);tl.to('#cw-4-2',{color:'#ffffff',duration:0.08},3.62);
+tl.fromTo('#cg-5 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},3.62);
+tl.fromTo('#cw-5-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},3.66);tl.to('#cw-5-0',{color:'#ffffff',duration:0.08},4.28);
+tl.fromTo('#cg-6 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},4.28);
+tl.fromTo('#cw-6-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},4.32);tl.to('#cw-6-0',{color:'#ffffff',duration:0.08},4.5);
+tl.fromTo('#cw-6-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},4.56);tl.to('#cw-6-2',{color:'#ffffff',duration:0.08},4.76);
+tl.fromTo('#cg-7 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},4.76);
+tl.fromTo('#cw-7-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},5.18);tl.to('#cw-7-1',{color:'#ffffff',duration:0.08},5.4);
+tl.fromTo('#cg-8 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},5.92);
+tl.fromTo('#cw-8-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},5.96);tl.to('#cw-8-0',{color:'#ffffff',duration:0.08},6.3);
+tl.fromTo('#cw-8-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},6.3);tl.to('#cw-8-1',{color:'#ffffff',duration:0.08},6.56);
+tl.fromTo('#cg-9 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},6.56);
+tl.fromTo('#cw-9-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},6.6);tl.to('#cw-9-0',{color:'#ffffff',duration:0.08},6.68);
+tl.fromTo('#cw-9-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},6.68);tl.to('#cw-9-1',{color:'#ffffff',duration:0.08},6.92);
+tl.fromTo('#cw-9-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},6.92);tl.to('#cw-9-2',{color:'#ffffff',duration:0.08},7);
+tl.fromTo('#cg-10 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},7);
+tl.fromTo('#cw-10-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},7.04);tl.to('#cw-10-0',{color:'#ffffff',duration:0.08},7.18);
+tl.fromTo('#cw-10-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},7.4);tl.to('#cw-10-2',{color:'#ffffff',duration:0.08},7.8);
+tl.fromTo('#cg-11 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},7.8);
+tl.fromTo('#cw-11-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},7.84);tl.to('#cw-11-0',{color:'#ffffff',duration:0.08},8.1);
+tl.fromTo('#cw-11-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},8.1);tl.to('#cw-11-1',{color:'#ffffff',duration:0.08},8.56);
+tl.fromTo('#cg-12 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},8.56);
+tl.fromTo('#cw-12-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},8.6);tl.to('#cw-12-0',{color:'#ffffff',duration:0.08},8.86);
+tl.fromTo('#cw-12-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},8.86);tl.to('#cw-12-1',{color:'#ffffff',duration:0.08},9.46);
+tl.fromTo('#cg-13 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},9.46);
+tl.fromTo('#cw-13-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},9.5);tl.to('#cw-13-0',{color:'#ffffff',duration:0.08},9.76);
+tl.fromTo('#cw-13-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},9.76);tl.to('#cw-13-1',{color:'#ffffff',duration:0.08},10);
+tl.fromTo('#cg-14 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},10);
+tl.fromTo('#cw-14-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},10.04);tl.to('#cw-14-0',{color:'#ffffff',duration:0.08},10.14);
+tl.fromTo('#cw-14-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},10.14);tl.to('#cw-14-1',{color:'#ffffff',duration:0.08},10.34);
+tl.fromTo('#cw-14-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},10.34);tl.to('#cw-14-2',{color:'#ffffff',duration:0.08},10.4);
+tl.fromTo('#cg-15 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},10.4);
+tl.fromTo('#cw-15-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},10.64);tl.to('#cw-15-1',{color:'#ffffff',duration:0.08},10.84);
+tl.fromTo('#cw-15-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},10.84);tl.to('#cw-15-2',{color:'#ffffff',duration:0.08},10.92);
+tl.fromTo('#cg-16 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},10.92);
+tl.fromTo('#cw-16-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},10.96);tl.to('#cw-16-0',{color:'#ffffff',duration:0.08},11.2);
+tl.fromTo('#cw-16-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},11.2);tl.to('#cw-16-1',{color:'#ffffff',duration:0.08},11.56);
+tl.fromTo('#cw-16-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},11.56);tl.to('#cw-16-2',{color:'#ffffff',duration:0.08},11.66);
+tl.fromTo('#cg-17 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},11.66);
+tl.fromTo('#cw-17-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},11.7);tl.to('#cw-17-0',{color:'#ffffff',duration:0.08},11.92);
+tl.fromTo('#cw-17-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},11.92);tl.to('#cw-17-1',{color:'#ffffff',duration:0.08},12.02);
+tl.fromTo('#cw-17-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},12.02);tl.to('#cw-17-2',{color:'#ffffff',duration:0.08},12.2);
+tl.fromTo('#cg-18 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},12.2);
+tl.fromTo('#cw-18-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},12.24);tl.to('#cw-18-0',{color:'#ffffff',duration:0.08},12.58);
+tl.fromTo('#cg-19 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},12.58);
+tl.fromTo('#cw-19-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},12.62);tl.to('#cw-19-0',{color:'#ffffff',duration:0.08},12.86);
+tl.fromTo('#cw-19-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},12.86);tl.to('#cw-19-1',{color:'#ffffff',duration:0.08},13.14);
+tl.fromTo('#cg-20 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},13.14);
+tl.fromTo('#cw-20-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},13.18);tl.to('#cw-20-0',{color:'#ffffff',duration:0.08},13.3);
+tl.fromTo('#cw-20-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},13.3);tl.to('#cw-20-1',{color:'#ffffff',duration:0.08},13.56);
+tl.fromTo('#cw-20-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},13.56);tl.to('#cw-20-2',{color:'#ffffff',duration:0.08},13.64);
+tl.fromTo('#cg-21 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},13.64);
+tl.fromTo('#cw-21-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},14.4);tl.to('#cw-21-1',{color:'#ffffff',duration:0.08},14.54);
+tl.fromTo('#cw-21-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},14.54);tl.to('#cw-21-2',{color:'#ffffff',duration:0.08},14.68);
+tl.fromTo('#cg-22 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},14.68);
+tl.fromTo('#cw-22-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},15.32);tl.to('#cw-22-1',{color:'#ffffff',duration:0.08},15.58);
+tl.fromTo('#cw-22-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},15.58);tl.to('#cw-22-2',{color:'#ffffff',duration:0.08},15.64);
+tl.fromTo('#cg-23 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},15.64);
+tl.fromTo('#cw-23-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},15.68);tl.to('#cw-23-0',{color:'#ffffff',duration:0.08},15.76);
+tl.fromTo('#cw-23-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},15.76);tl.to('#cw-23-1',{color:'#ffffff',duration:0.08},16.2);
+tl.fromTo('#cw-23-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},16.2);tl.to('#cw-23-2',{color:'#ffffff',duration:0.08},16.65);
+tl.fromTo('#cg-24 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},16.68);
+tl.fromTo('#cw-24-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},16.72);tl.to('#cw-24-0',{color:'#ffffff',duration:0.08},16.86);
+tl.fromTo('#cw-24-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},16.86);tl.to('#cw-24-1',{color:'#ffffff',duration:0.08},17.24);
+tl.fromTo('#cg-25 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},17.24);
+tl.fromTo('#cw-25-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},17.28);tl.to('#cw-25-0',{color:'#ffffff',duration:0.08},17.54);
+tl.fromTo('#cw-25-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},17.54);tl.to('#cw-25-1',{color:'#ffffff',duration:0.08},17.66);
+tl.fromTo('#cw-25-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},17.66);tl.to('#cw-25-2',{color:'#ffffff',duration:0.08},17.84);
+tl.fromTo('#cg-26 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},17.84);
+tl.fromTo('#cw-26-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},17.88);tl.to('#cw-26-0',{color:'#ffffff',duration:0.08},18.22);
+tl.fromTo('#cw-26-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},18.22);tl.to('#cw-26-1',{color:'#ffffff',duration:0.08},18.58);
+tl.fromTo('#cg-27 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},18.58);
+tl.fromTo('#cw-27-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},18.62);tl.to('#cw-27-0',{color:'#ffffff',duration:0.08},18.76);
+tl.fromTo('#cw-27-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},18.76);tl.to('#cw-27-1',{color:'#ffffff',duration:0.08},19.06);
+tl.fromTo('#cg-28 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},19.34);
+tl.fromTo('#cg-29 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},19.9);
+tl.fromTo('#cw-29-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},19.94);tl.to('#cw-29-0',{color:'#ffffff',duration:0.08},20.08);
+tl.fromTo('#cw-29-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},20.36);tl.to('#cw-29-2',{color:'#ffffff',duration:0.08},20.54);
+tl.fromTo('#cg-30 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},20.54);
+tl.fromTo('#cw-30-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},20.58);tl.to('#cw-30-0',{color:'#ffffff',duration:0.08},20.94);
+tl.fromTo('#cw-30-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},20.94);tl.to('#cw-30-1',{color:'#ffffff',duration:0.08},21.06);
+tl.fromTo('#cw-30-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},21.06);tl.to('#cw-30-2',{color:'#ffffff',duration:0.08},21.28);
+tl.fromTo('#cg-31 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},21.28);
+tl.fromTo('#cw-31-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},21.32);tl.to('#cw-31-0',{color:'#ffffff',duration:0.08},21.58);
+tl.fromTo('#cw-31-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},21.58);tl.to('#cw-31-1',{color:'#ffffff',duration:0.08},21.68);
+tl.fromTo('#cw-31-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},21.68);tl.to('#cw-31-2',{color:'#ffffff',duration:0.08},21.8);
+tl.fromTo('#cg-32 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},21.8);
+tl.fromTo('#cw-32-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},21.84);tl.to('#cw-32-0',{color:'#ffffff',duration:0.08},22.32);
+tl.fromTo('#cw-32-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},22.32);tl.to('#cw-32-1',{color:'#ffffff',duration:0.08},22.52);
+tl.fromTo('#cg-33 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},22.58);
+tl.fromTo('#cw-33-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},22.68);tl.to('#cw-33-1',{color:'#ffffff',duration:0.08},23.08);
+tl.fromTo('#cw-33-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},23.08);tl.to('#cw-33-2',{color:'#ffffff',duration:0.08},23.64);
+tl.fromTo('#cg-34 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},23.64);
+tl.fromTo('#cw-34-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},23.68);tl.to('#cw-34-0',{color:'#ffffff',duration:0.08},23.78);
+tl.fromTo('#cw-34-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},23.78);tl.to('#cw-34-1',{color:'#ffffff',duration:0.08},23.88);
+tl.fromTo('#cw-34-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},23.88);tl.to('#cw-34-2',{color:'#ffffff',duration:0.08},24.06);
+tl.fromTo('#cg-35 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},24.06);
+tl.fromTo('#cw-35-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},24.1);tl.to('#cw-35-0',{color:'#ffffff',duration:0.08},24.24);
+tl.fromTo('#cw-35-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},24.24);tl.to('#cw-35-1',{color:'#ffffff',duration:0.08},24.38);
+tl.fromTo('#cw-35-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},24.38);tl.to('#cw-35-2',{color:'#ffffff',duration:0.08},24.46);
+tl.fromTo('#cg-36 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},24.46);
+tl.fromTo('#cw-36-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},24.5);tl.to('#cw-36-0',{color:'#ffffff',duration:0.08},24.76);
+tl.fromTo('#cw-36-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},24.76);tl.to('#cw-36-1',{color:'#ffffff',duration:0.08},25.2);
+tl.fromTo('#cg-37 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},25.2);
+tl.fromTo('#cw-37-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},25.24);tl.to('#cw-37-0',{color:'#ffffff',duration:0.08},25.38);
+tl.fromTo('#cw-37-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},25.38);tl.to('#cw-37-1',{color:'#ffffff',duration:0.08},25.52);
+tl.fromTo('#cw-37-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},25.52);tl.to('#cw-37-2',{color:'#ffffff',duration:0.08},25.6);
+tl.fromTo('#cg-38 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},25.6);
+tl.fromTo('#cw-38-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},25.64);tl.to('#cw-38-0',{color:'#ffffff',duration:0.08},25.74);
+tl.fromTo('#cw-38-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},25.74);tl.to('#cw-38-1',{color:'#ffffff',duration:0.08},25.96);
+tl.fromTo('#cw-38-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},25.96);tl.to('#cw-38-2',{color:'#ffffff',duration:0.08},26.06);
+tl.fromTo('#cg-39 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},26.06);
+tl.fromTo('#cw-39-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},26.1);tl.to('#cw-39-0',{color:'#ffffff',duration:0.08},26.34);
+tl.fromTo('#cw-39-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},26.34);tl.to('#cw-39-1',{color:'#ffffff',duration:0.08},26.62);
+tl.fromTo('#cw-39-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},26.62);tl.to('#cw-39-2',{color:'#ffffff',duration:0.08},26.8);
+tl.fromTo('#cg-40 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},26.8);
+tl.fromTo('#cw-40-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},26.84);tl.to('#cw-40-0',{color:'#ffffff',duration:0.08},27.34);
+tl.fromTo('#cw-40-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},27.34);tl.to('#cw-40-1',{color:'#ffffff',duration:0.08},27.48);
+tl.fromTo('#cw-40-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},27.48);tl.to('#cw-40-2',{color:'#ffffff',duration:0.08},27.94);
+tl.fromTo('#cg-41 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},27.94);
+tl.fromTo('#cw-41-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},27.98);tl.to('#cw-41-0',{color:'#ffffff',duration:0.08},28.16);
+tl.fromTo('#cw-41-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},28.16);tl.to('#cw-41-1',{color:'#ffffff',duration:0.08},28.26);
+tl.fromTo('#cg-42 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},28.3);
+tl.fromTo('#cw-42-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},28.34);tl.to('#cw-42-0',{color:'#ffffff',duration:0.08},28.6);
+tl.fromTo('#cw-42-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},28.6);tl.to('#cw-42-1',{color:'#ffffff',duration:0.08},28.74);
+tl.fromTo('#cw-42-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},28.74);tl.to('#cw-42-2',{color:'#ffffff',duration:0.08},29);
+tl.fromTo('#cg-43 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},29);
+tl.fromTo('#cg-44 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},29.34);
+tl.fromTo('#cw-44-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},29.38);tl.to('#cw-44-0',{color:'#ffffff',duration:0.08},29.48);
+tl.fromTo('#cw-44-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},29.48);tl.to('#cw-44-1',{color:'#ffffff',duration:0.08},29.64);
+tl.fromTo('#cw-44-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},29.64);tl.to('#cw-44-2',{color:'#ffffff',duration:0.08},29.86);
+tl.fromTo('#cg-45 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},29.86);
+tl.fromTo('#cw-45-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},29.9);tl.to('#cw-45-0',{color:'#ffffff',duration:0.08},30.08);
+tl.fromTo('#cw-45-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},30.08);tl.to('#cw-45-1',{color:'#ffffff',duration:0.08},30.16);
+tl.fromTo('#cw-45-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},30.16);tl.to('#cw-45-2',{color:'#ffffff',duration:0.08},30.46);
+tl.fromTo('#cg-46 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},30.46);
+tl.fromTo('#cw-46-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},30.5);tl.to('#cw-46-0',{color:'#ffffff',duration:0.08},30.66);
+tl.fromTo('#cw-46-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},30.66);tl.to('#cw-46-1',{color:'#ffffff',duration:0.08},30.8);
+tl.fromTo('#cw-46-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},30.8);tl.to('#cw-46-2',{color:'#ffffff',duration:0.08},31.06);
+tl.fromTo('#cg-47 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},31.06);
+tl.fromTo('#cw-47-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},31.1);tl.to('#cw-47-0',{color:'#ffffff',duration:0.08},31.28);
+/* CAPTIONS:END */
+
+window.__timelines = window.__timelines || {};
+window.__timelines['reel'] = tl;
+</script>
+</div>
+</body></html>

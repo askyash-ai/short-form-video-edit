@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>cover</title>
+<!-- Reel cover (1080x1920), filled and snapshotted by scripts/make-cover.mjs: a frame of the conformed footage, a light
+     navy wash, and one liquid-glass M card in the zone that survives BOTH crops Instagram makes of a cover: the 4:5
+     feed (y 285-1635) and the 3:4 profile grid (y 240-1680). The card sits above the head, like every M in the reel.
+     Placeholders: __FACE__ __TOP__ __RIM__ __TONE__ __EYEBROW__ __TITLE__ __TINT__ -->
+<link rel="stylesheet" href="reel.css">
+<script src="gsap.min.js"></script>
+<style>
+  :root{--glass-tint:__TINT__}
+  #frame{position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover}
+  #wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,12,24,.50) 0%,rgba(6,12,24,0) 36%,rgba(6,12,24,0) 72%,rgba(6,12,24,.30) 100%)}
+  #card{position:absolute;left:60px;top:__TOP__px;width:960px;z-index:10}
+  #card .eyebrow{font-size:30px}
+  #card .head{font-size:78px;line-height:1.0;letter-spacing:-1.8px;margin-top:12px}
+</style>
+</head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lg-refract" x="0" y="0" width="100%" height="100%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<div id="cover" data-composition-id="cover" data-start="0" data-duration="1" data-fps="30" data-width="1080" data-height="1920" data-face="__FACE__">
+  <img id="frame" src="frame.png" alt="">
+  <div id="wash"></div>
+  <div id="card"><div class="lg sz-m __RIM__"><div class="eyebrow __TONE__">__EYEBROW__</div><div class="head">__TITLE__</div></div></div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+window.__timelines = window.__timelines || {};
+window.__timelines['cover'] = tl;
+</script>
+</body></html>

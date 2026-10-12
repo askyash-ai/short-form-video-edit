@@ -1,0 +1,49 @@
+{
+ "video": "input-video.mp4",
+ "fps": 60.0,
+ "joins": [
+  3.117,
+  5.85,
+  9.367,
+  12.5,
+  17.183,
+  19.833,
+  23.567,
+  25.133,
+  27.867
+ ],
+ "scores": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "soft_dissolves": [
+  2.44,
+  6.46,
+  7.72,
+  8.48,
+  9.93,
+  13.08,
+  15.22,
+  18.51,
+  22.22
+ ],
+ "note": "hard joins only (take boundaries); soft_dissolves are 0.08 s cross-dissolves inside a take, no reframe",
+ "find_joins_raw": [
+  3.117,
+  5.85,
+  9.367,
+  12.5,
+  17.183,
+  19.833,
+  23.567,
+  25.133,
+  27.867
+ ]
+}

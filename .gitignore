@@ -1,0 +1,19 @@
+# Never publish keys or local settings
+.env
+.env.*
+*.key
+*.pem
+
+# Python and OS clutter
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Logos you add yourself are their makers' trademarks: keep them out of the repo
+assets/*.png
+assets/*.svg
+assets/*.jpg
+
+# Your filled-in denylist stays on your machine (the empty template is tracked; see README)
+private/*.local.txt

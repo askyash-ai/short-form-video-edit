@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>__TITLE__</title>
+<!-- Reel template (1080x1920). The build copies index.html, reel.css, reel.js and gsap.min.js into $W/public/, then:
+     1. fill __TITLE__, __DURATION__, __FPS__ (the source's rate: 60 or 30), __FACE__ (x,y,w,h of the head incl. hair and beard, measured on a frame),
+        __SERIES_NAME__, __N__, __KEYWORD__, __LEAD_MAGNET__, __CTA_START__, __CTA_DUR__;
+     2. captions.mjs fills the CAPTIONS blocks;
+     3. beats go between the BEATS markers: each a .card-host.clip with data-anchor (spoken phrase) and data-size s|m|l,
+        holding one .lg element. Sizes and zones: SKILL.md "Overlay sizes and the face".
+     Working markup for every format: $SK/reference/reel-1-v3/index.html (the approved baseline). -->
+<link rel="stylesheet" href="reel.css">
+<script src="gsap.min.js"></script>
+<script src="reel.js"></script>
+</head><body>
+<!-- liquid-glass refraction (backdrop-filter url(#lg-refract) in reel.css) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lg-refract" x="0" y="0" width="100%" height="100%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<div id="reel" data-composition-id="reel" data-start="0" data-duration="__DURATION__"
+     data-fps="__FPS__" data-width="1080" data-height="1920" data-face="__FACE__">
+
+  <div id="video-wrap">
+    <div id="video-zoom">
+      <video id="bg-video" src="input-video.mp4" playsinline data-has-audio="true"
+             data-start="0" data-duration="__DURATION__" data-track-index="1"></video>
+    </div>
+    <div id="shade"></div>
+  </div>
+  <div id="dim"></div>
+
+  <!-- S: series tag, top-left, first ~3 s (deliberately unanchored) -->
+  <div id="series" class="card-host clip" data-unanchored data-size="s" data-start="0.15" data-duration="3.2" data-track-index="2" style="left:60px;top:262px">
+    <div class="lg sz-s pill"><span class="live" data-c></span><span class="tx" data-c>__SERIES_NAME__ <span class="n">#__N__</span></span></div>
+  </div>
+
+  <!-- BEATS:START  examples, one per size (delete what you do not use)
+  S, beside the head:
+  <div id="p1" class="card-host clip" data-anchor="two tests" data-size="s" data-start="19.0" data-duration="2.4" data-track-index="3" style="left:700px;top:640px">
+    <div class="lg sz-s num-chip">2</div></div>
+  M, the top zone above the head (top 300; top 372 while the series tag is up, as in the approved reel-1 v3):
+  <div id="h1" class="card-host clip" data-anchor="stealing" data-size="m" data-start="1.3" data-duration="3.0" data-track-index="3" style="left:60px;top:300px;width:960px">
+    <div class="lg sz-m"><div class="eyebrow danger">Alert</div><div class="head">2FA codes <span class="bad">stolen</span></div></div></div>
+  L, may cover the face (pair it with dim()):
+  <div id="a1" class="card-host clip" data-anchor="researchers found" data-size="l" data-start="4.6" data-duration="5.4" data-track-index="4" style="left:70px;top:270px">
+    <div class="lg art"> ...see SKILL.md R16... </div></div>
+  BEATS:END -->
+
+  <!-- M: CTA, last seconds -->
+  <div id="cta" class="card-host clip" data-anchor="comment" data-keyword="__KEYWORD__" data-size="m" data-start="__CTA_START__" data-duration="__CTA_DUR__" data-track-index="5" style="left:90px;top:290px;width:900px">
+    <div class="lg sz-m accent cta"><div class="line" data-c><span class="lead">Comment</span><span class="kw">__KEYWORD__</span></div><div class="what" data-c>__LEAD_MAGNET__</div></div>
+  </div>
+
+  <div id="captions">
+<!-- CAPTIONS:START -->
+<!-- CAPTIONS:END -->
+  </div>
+
+  <div id="safe-guide"><div style="left:0;top:0;width:1080px;height:250px"></div><div style="left:0;top:1500px;width:1080px;height:420px"></div>
+    <div style="left:960px;top:1000px;width:120px;height:500px"></div><div class="face" id="face-guide"></div></div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+const { lgIn, lgOut, pop, dim, mark, pageTo, camSet, punch, creep, count, type } = reelKit(tl);
+const D = __DURATION__;
+camSet(0, 1.0);
+lgIn('#series .lg', 0.15);
+lgOut('#series .lg', 3.35);
+
+/* BEATS:START */
+/* BEATS:END */
+
+lgIn('#cta .lg', __CTA_START__);
+
+/* CAPTIONS:START */
+/* CAPTIONS:END */
+
+window.__timelines = window.__timelines || {};
+window.__timelines['reel'] = tl;
+</script>
+</div>
+</body></html>

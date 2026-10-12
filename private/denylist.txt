@@ -1,0 +1,3 @@
+# Private denylist for reel-check.mjs: one term per line, case-insensitive.
+# Add your employer's name, its short forms, real customers/suppliers, real plant or PO number prefixes,
+# and anything else that must never appear on screen or in a caption. Never share this file once you fill it in.

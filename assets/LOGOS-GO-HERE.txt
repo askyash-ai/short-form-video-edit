@@ -1,0 +1,4 @@
+No brand logos ship with this skill: they are their makers' trademarks.
+To show a tool on screen, download its logo from the maker's official brand or press page and save it here as a
+transparent PNG named <tool>-logo.png (for example claude-logo.png). A logo names the tool; it never implies the
+tool's maker endorses your video.

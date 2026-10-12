@@ -1,0 +1,68 @@
+{
+ "url": "https://www.bleepingcomputer.com/news/security/fake-chatgpt-gemini-sites-steal-advertising-accounts-mfa-codes/",
+ "finalUrl": "https://www.bleepingcomputer.com/news/security/fake-chatgpt-gemini-sites-steal-advertising-accounts-mfa-codes/",
+ "domain": "bleepingcomputer.com",
+ "site": "BleepingComputer",
+ "title": "Fake ChatGPT, Gemini Sites steal advertising accounts, MFA codes",
+ "published": null,
+ "capturedAt": "2026-10-08T00:56:01.890Z",
+ "mode": "mobile",
+ "size": [
+  1179,
+  5400
+ ],
+ "dpr": 3,
+ "headline": {
+  "text": "Fake ChatGPT, Gemini Sites steal advertising accounts, MFA codes",
+  "x": 45,
+  "y": 854,
+  "w": 1089,
+  "h": 324
+ },
+ "highlights": {
+  "fake ChatGPT, Gemini, Claude, and Perplexity sites": [
+   {
+    "x": 408,
+    "y": 2337,
+    "w": 549,
+    "h": 63
+   },
+   {
+    "x": 45,
+    "y": 2413,
+    "w": 658,
+    "h": 63
+   }
+  ],
+  "multi-factor authentication (MFA) codes": [
+   {
+    "x": 423,
+    "y": 2488,
+    "w": 649,
+    "h": 63
+   },
+   {
+    "x": 45,
+    "y": 2564,
+    "w": 306,
+    "h": 63
+   }
+  ],
+  "browser-in-browser attacks": [
+   {
+    "x": 569,
+    "y": 2564,
+    "w": 474,
+    "h": 63
+   },
+   {
+    "x": 45,
+    "y": 2640,
+    "w": 169,
+    "h": 63
+   }
+  ]
+ },
+ "consent": "none seen",
+ "hiddenFixed": 2
+}

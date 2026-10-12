@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Reel 1 v3 - Fake AI login pages</title>
+<link rel="stylesheet" href="reel.css">
+<script src="gsap.min.js"></script>
+<script src="reel.js"></script>
+<style>
+/* reel-1 specifics on top of reel.css: only the footage-matched glass tint (all components now live in reel.css) */
+:root{--glass-tint:rgba(24,38,68,.64)}   /* hoodie rgb(103,137,192), hue 217, darkened: the glass echoes the shot */
+</style>
+</head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lg-refract" x="0" y="0" width="100%" height="100%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<div id="reel" data-composition-id="reel" data-start="0" data-duration="44.8"
+     data-fps="30" data-width="1080" data-height="1920" data-face="180,560,500,740">
+
+  <div id="video-wrap">
+    <div id="video-zoom">
+      <video id="bg-video" src="input-video.mp4" playsinline data-has-audio="true" data-start="0" data-duration="44.8" data-track-index="1"></video>
+    </div>
+    <div id="shade"></div>
+  </div>
+  <div id="dim"></div>
+
+  <!-- 0.15 S series -->
+  <div id="series" class="card-host clip" data-unanchored data-size="s" data-start="0.15" data-duration="3.2" data-track-index="2" style="left:60px;top:262px">
+    <div class="lg sz-s pill"><span class="live" data-c></span><span class="tx" data-c>AI AT WORK <span class="n">· SECURITY</span></span></div>
+  </div>
+
+  <!-- 0.10 M hook: the promise, muted -->
+  <div id="hook" class="card-host clip" data-anchor="fake chatgpt" data-size="m" data-start="0.10" data-duration="4.40" data-track-index="3" style="left:60px;top:372px;width:960px">
+    <div class="lg sz-m danger"><div class="eyebrow danger" data-c>Alert · this week</div><div class="head" data-c>2FA codes <span class="bad" id="hk-stolen" style="display:inline-block">stolen</span></div></div>
+  </div>
+
+  <!-- 4.56 L the real article (BleepingComputer, 2026-10-06), highlights on the spoken words -->
+  <div id="art" class="card-host clip" data-anchor="researchers have found" data-size="l" data-start="4.56" data-duration="5.62" data-track-index="4" style="left:70px;top:262px">
+    <div class="lg art">
+      <div class="chrome" data-c><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>bleepingcomputer.com</span></div>
+      <div class="view" data-c>
+        <div class="page" id="a-page"><img src="img/article.png" width="1179" height="5400" alt="">
+          <div class="mark" id="m1a" style="left:408px;top:2337px;width:549px;height:63px"></div>
+          <div class="mark" id="m1b" style="left:45px;top:2413px;width:658px;height:63px"></div>
+          <div class="mark warn" id="m2a" style="left:423px;top:2488px;width:649px;height:63px"></div>
+          <div class="mark warn" id="m2b" style="left:45px;top:2564px;width:306px;height:63px"></div>
+        </div>
+      </div>
+      <div class="src" data-c><span>BleepingComputer</span><span>Oct 6, 2026</span></div>
+    </div>
+  </div>
+
+  <!-- 10.30 L the trick: a pop-up drawn inside the page -->
+  <div id="trick" class="card-host clip" data-anchor="the trick" data-size="l" data-start="10.30" data-duration="7.60" data-track-index="4" style="left:70px;top:262px">
+    <div class="lg sz-l panel">
+      <div class="eyebrow warn" data-c>The trick</div>
+      <div class="title" data-c>The login pop-up is <span style="color:#fca5a5">fake</span></div>
+      <div class="mock" data-c>
+        <div class="bar"><i></i><i></i><i></i><span class="u">ai-ads-portal.example <span class="tag">FAKE SITE</span></span></div>
+        <div class="body">
+          <div class="ghost" style="top:30px;width:60%"></div><div class="ghost" style="top:70px"></div><div class="ghost" style="top:110px;width:75%"></div>
+          <div class="popup" id="popup">
+            <div class="bar"><i></i><i></i><i></i><span class="u" id="pop-url"><svg id="pop-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>accounts.google.com</span></div>
+            <div class="signin"><b>Sign in</b><div class="field"></div><div class="field"></div><div class="btn"></div></div>
+          </div>
+          <div class="ring" id="ring-url" style="left:236px;top:64px;width:466px;height:50px"></div>
+          <div class="ring" id="ring-lock" style="left:242px;top:68px;width:42px;height:42px;border-radius:50%"></div>
+          <div class="outline" id="pop-outline" style="left:136px;top:46px;width:588px;height:370px"></div>
+          <div class="callout" id="pop-callout" style="left:300px;top:430px">Just HTML in the page</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 18.00 M so: URL check isn't enough -->
+  <div id="urlno" class="card-host clip" data-anchor="so checking the url" data-size="m" data-start="17.96" data-duration="2.26" data-track-index="3" style="left:60px;top:300px;width:960px">
+    <div class="lg sz-m warn"><div class="eyebrow warn" data-c>So…</div><div class="head" data-c>Checking the URL<br><span class="warn">isn't enough</span></div></div>
+  </div>
+
+  <!-- 20.10 S two tests, beside the head -->
+  <div id="two" class="card-host clip" data-anchor="two tests" data-size="s" data-start="20.10" data-duration="1.10" data-track-index="6" style="left:700px;top:660px">
+    <div class="lg sz-s num-chip accent">2</div>
+  </div>
+
+  <!-- 21.24 L test 1: drag the pop-up -->
+  <div id="drag" class="card-host clip" data-anchor="one drag the pop-up" data-size="l" data-start="21.24" data-duration="6.42" data-track-index="4" style="left:70px;top:262px">
+    <div class="lg sz-l panel">
+      <div class="eyebrow" data-c>Test 1</div>
+      <div class="title" data-c>Drag the pop-up</div>
+      <div class="drag-stage" data-c>
+        <div class="drag-browser"><span class="label">YOUR BROWSER</span>
+          <div class="drag-page">
+            <div class="win fake" id="w-fake" style="left:40px;top:300px">FAKE</div>
+          </div>
+        </div>
+        <div class="win real" id="w-real" style="left:54px;top:90px">REAL</div>
+        <svg class="cursor" id="c-real" viewBox="0 0 24 24" style="left:200px;top:190px"><path d="M4 2l16 10-7 1.5L9.5 21z"/></svg>
+        <svg class="cursor" id="c-fake" viewBox="0 0 24 24" style="left:200px;top:410px"><path d="M4 2l16 10-7 1.5L9.5 21z"/></svg>
+        <div class="verdict-tag ok" id="v-real" style="left:470px;top:250px">Leaves the browser ✓</div>
+        <div class="verdict-tag bad" id="v-fake" style="left:240px;top:500px">Stuck at the edge ✗</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 27.70 M test 2 -->
+  <div id="pm" class="card-host clip" data-anchor="two let your password manager" data-size="m" data-start="27.70" data-duration="2.16" data-track-index="3" style="left:60px;top:300px;width:960px">
+    <div class="lg sz-m accent"><div class="eyebrow" data-c>Test 2</div><div class="head" data-c>Let your <span class="em">password</span><br><span class="em">manager</span> decide</div></div>
+  </div>
+  <div id="pm2" class="card-host clip" data-anchor="it reads the real address" data-size="m" data-start="29.90" data-duration="3.18" data-track-index="3" style="left:60px;top:300px;width:960px">
+    <div class="lg sz-m"><span data-c></span>
+      <div class="check-row" id="r1"><span class="ck ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Reads the real address</div>
+      <div class="check-row" id="r2"><span class="ck bad"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>No autofill? Close the tab</div>
+    </div>
+  </div>
+
+  <!-- 33.20 S best-fix pills above the head -->
+  <div id="fix" class="card-host clip" data-anchor="best fix" data-size="m" data-start="33.20" data-duration="5.40" data-track-index="6" style="left:60px;top:300px;width:960px">
+    <div class="pills">
+      <div class="lg sz-s pill" id="f1"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></span><span class="tx">Bookmark it</span></div>
+      <div class="lg sz-s pill warn" id="f2"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M8.5 8.5l5 5M13.5 8.5l-5 5"/></svg></span><span class="tx">Don't search</span></div>
+      <div class="lg sz-s pill" id="f3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3M14 9l2 2"/></svg></span><span class="tx">Use a passkey</span></div>
+    </div>
+  </div>
+
+  <!-- 38.80 S share -->
+  <div id="send" class="card-host clip" data-anchor="send this to a friend" data-size="s" data-start="38.70" data-duration="3.10" data-track-index="6" style="left:60px;top:300px">
+    <div class="lg sz-s pill"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></svg></span><span class="tx">Send to a friend</span></div>
+  </div>
+
+  <!-- 41.85 M CTA -->
+  <div id="cta" class="card-host clip" data-anchor="comment" data-keyword="SAFE" data-size="m" data-start="41.85" data-duration="2.95" data-track-index="5" style="left:90px;top:300px;width:900px">
+    <div class="lg sz-m accent cta"><div class="line" data-c><span class="lead">Comment</span><span class="kw">SAFE</span></div><div class="what" data-c>the one-page checklist</div></div>
+  </div>
+
+  <div id="captions">
+<!-- CAPTIONS:START -->
+  <div id="cg-0" class="cg clip" data-start="0.18" data-duration="1.2" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-0-0">Fake </span><span class="w" id="cw-0-1">ChatGPT </span><span class="w" id="cw-0-2">pages</span></div></div>
+  <div id="cg-1" class="cg clip" data-start="1.38" data-duration="0.64" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-1-0">are </span><span class="w" id="cw-1-1">stealing </span><span class="w" id="cw-1-2">your</span></div></div>
+  <div id="cg-2" class="cg clip" data-start="2.02" data-duration="0.42" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-2-0">two-factor</span></div></div>
+  <div id="cg-3" class="cg clip" data-start="2.44" data-duration="1.25" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-3-0">authentication </span><span class="w" id="cw-3-1">codes</span></div></div>
+  <div id="cg-4" class="cg clip" data-start="3.7" data-duration="0.75" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-4-0">right </span><span class="w" id="cw-4-1">now</span></div></div>
+  <div id="cg-5" class="cg clip" data-start="4.72" data-duration="1.22" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-5-0">Researchers </span><span class="w" id="cw-5-1">have </span><span class="w" id="cw-5-2">found</span></div></div>
+  <div id="cg-6" class="cg clip" data-start="5.94" data-duration="1.1" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-6-0">fake </span><span class="w" id="cw-6-1">ChatGPT</span></div></div>
+  <div id="cg-7" class="cg clip" data-start="7.04" data-duration="0.58" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-7-0">Gemini</span></div></div>
+  <div id="cg-8" class="cg clip" data-start="7.62" data-duration="0.4" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-8-0">Claude</span></div></div>
+  <div id="cg-9" class="cg clip" data-start="8.02" data-duration="1.38" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-9-0">and </span><span class="w" id="cw-9-1">Perplexity </span><span class="w" id="cw-9-2">sites</span></div></div>
+  <div id="cg-10" class="cg clip" data-start="9.4" data-duration="0.73" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-10-0">this </span><span class="w" id="cw-10-1">week</span></div></div>
+  <div id="cg-11" class="cg clip" data-start="10.4" data-duration="0.71" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-11-0">The </span><span class="w" id="cw-11-1">trick?</span></div></div>
+  <div id="cg-12" class="cg clip" data-start="11.34" data-duration="0.92" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-12-0">The </span><span class="w" id="cw-12-1">login </span><span class="w" id="cw-12-2">pop-up</span></div></div>
+  <div id="cg-13" class="cg clip" data-start="12.26" data-duration="0.73" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-13-0">is </span><span class="w em" id="cw-13-1">fake</span></div></div>
+  <div id="cg-14" class="cg clip" data-start="13.16" data-duration="0.88" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-14-0">Address </span><span class="w" id="cw-14-1">bar</span></div></div>
+  <div id="cg-15" class="cg clip" data-start="14.04" data-duration="0.77" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-15-0">padlock</span></div></div>
+  <div id="cg-16" class="cg clip" data-start="14.88" data-duration="0.75" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-16-0">all </span><span class="w" id="cw-16-1">of </span><span class="w" id="cw-16-2">it</span></div></div>
+  <div id="cg-17" class="cg clip" data-start="15.88" data-duration="1.26" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-17-0">It's </span><span class="w" id="cw-17-1">drawn </span><span class="w" id="cw-17-2">inside</span></div></div>
+  <div id="cg-18" class="cg clip" data-start="17.14" data-duration="0.71" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-18-0">the </span><span class="w" id="cw-18-1">page</span></div></div>
+  <div id="cg-19" class="cg clip" data-start="18.12" data-duration="0.58" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-19-0">So </span><span class="w" id="cw-19-1">checking </span><span class="w" id="cw-19-2">the</span></div></div>
+  <div id="cg-20" class="cg clip" data-start="18.7" data-duration="1.41" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-20-0">URL </span><span class="w" id="cw-20-1">isn't </span><span class="w" id="cw-20-2">enough</span></div></div>
+  <div id="cg-21" class="cg clip" data-start="20.26" data-duration="0.87" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-21-0">Two </span><span class="w em" id="cw-21-1">tests</span></div></div>
+  <div id="cg-22" class="cg clip" data-start="21.4" data-duration="0.49" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-22-0">One</span></div></div>
+  <div id="cg-23" class="cg clip" data-start="21.94" data-duration="1.03" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-23-0">drag </span><span class="w" id="cw-23-1">the </span><span class="w" id="cw-23-2">pop-up</span></div></div>
+  <div id="cg-24" class="cg clip" data-start="23.1" data-duration="0.99" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-24-0">A </span><span class="w" id="cw-24-1">real </span><span class="w" id="cw-24-2">window</span></div></div>
+  <div id="cg-25" class="cg clip" data-start="24.14" data-duration="0.84" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-25-0">moves </span><span class="w" id="cw-25-1">off </span><span class="w" id="cw-25-2">the</span></div></div>
+  <div id="cg-26" class="cg clip" data-start="24.98" data-duration="0.6" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-26-0">browser</span></div></div>
+  <div id="cg-27" class="cg clip" data-start="25.58" data-duration="0.66" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-27-0">A </span><span class="w em" id="cw-27-1">fake </span><span class="w" id="cw-27-2">one</span></div></div>
+  <div id="cg-28" class="cg clip" data-start="26.24" data-duration="0.66" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-28-0">gets </span><span class="w" id="cw-28-1">stuck </span><span class="w" id="cw-28-2">at</span></div></div>
+  <div id="cg-29" class="cg clip" data-start="26.9" data-duration="0.69" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-29-0">the </span><span class="w" id="cw-29-1">edge</span></div></div>
+  <div id="cg-30" class="cg clip" data-start="27.86" data-duration="0.42" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-30-0">Two</span></div></div>
+  <div id="cg-31" class="cg clip" data-start="28.28" data-duration="0.56" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-31-0">let </span><span class="w" id="cw-31-1">your </span><span class="w em" id="cw-31-2">password</span></div></div>
+  <div id="cg-32" class="cg clip" data-start="28.84" data-duration="1.02" data-track-index="20"><div class="cg-inner"><span class="w em" id="cw-32-0">manager </span><span class="w" id="cw-32-1">decide</span></div></div>
+  <div id="cg-33" class="cg clip" data-start="29.86" data-duration="0.52" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-33-0">It </span><span class="w" id="cw-33-1">reads </span><span class="w" id="cw-33-2">the</span></div></div>
+  <div id="cg-34" class="cg clip" data-start="30.38" data-duration="0.9" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-34-0">real </span><span class="w" id="cw-34-1">address</span></div></div>
+  <div id="cg-35" class="cg clip" data-start="31.28" data-duration="0.73" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-35-0">no </span><span class="w" id="cw-35-1">autofill</span></div></div>
+  <div id="cg-36" class="cg clip" data-start="32.16" data-duration="0.87" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-36-0">close </span><span class="w" id="cw-36-1">the </span><span class="w" id="cw-36-2">tab</span></div></div>
+  <div id="cg-37" class="cg clip" data-start="33.3" data-duration="0.78" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-37-0">Best </span><span class="w" id="cw-37-1">fix</span></div></div>
+  <div id="cg-38" class="cg clip" data-start="34.08" data-duration="0.72" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-38-0">bookmark </span><span class="w" id="cw-38-1">the </span><span class="w" id="cw-38-2">real</span></div></div>
+  <div id="cg-39" class="cg clip" data-start="34.8" data-duration="0.65" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-39-0">sites</span></div></div>
+  <div id="cg-40" class="cg clip" data-start="35.56" data-duration="0.76" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-40-0">Stop </span><span class="w" id="cw-40-1">searching </span><span class="w" id="cw-40-2">for</span></div></div>
+  <div id="cg-41" class="cg clip" data-start="36.32" data-duration="0.34" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-41-0">them</span></div></div>
+  <div id="cg-42" class="cg clip" data-start="36.66" data-duration="0.94" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-42-0">Use </span><span class="w" id="cw-42-1">a </span><span class="w em" id="cw-42-2">passkey</span></div></div>
+  <div id="cg-43" class="cg clip" data-start="37.6" data-duration="0.97" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-43-0">where </span><span class="w" id="cw-43-1">it's </span><span class="w" id="cw-43-2">offered</span></div></div>
+  <div id="cg-44" class="cg clip" data-start="38.84" data-duration="0.46" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-44-0">Send </span><span class="w" id="cw-44-1">this </span><span class="w" id="cw-44-2">to</span></div></div>
+  <div id="cg-45" class="cg clip" data-start="39.3" data-duration="0.64" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-45-0">a </span><span class="w" id="cw-45-1">friend </span><span class="w" id="cw-45-2">who</span></div></div>
+  <div id="cg-46" class="cg clip" data-start="39.94" data-duration="1.36" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-46-0">Googles </span><span class="w" id="cw-46-1">ChatGPT </span><span class="w" id="cw-46-2">every</span></div></div>
+  <div id="cg-47" class="cg clip" data-start="41.3" data-duration="0.48" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-47-0">morning</span></div></div>
+  <div id="cg-48" class="cg clip" data-start="41.78" data-duration="0.62" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-48-0">and </span><span class="w" id="cw-48-1">comment </span><span class="w" id="cw-48-2">the</span></div></div>
+  <div id="cg-49" class="cg clip" data-start="42.4" data-duration="0.18" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-49-0">word</span></div></div>
+  <div id="cg-50" class="cg clip" data-start="42.58" data-duration="0.44" data-track-index="20"><div class="cg-inner"><span class="w kw" id="cw-50-0">SAFE</span></div></div>
+  <div id="cg-51" class="cg clip" data-start="43.02" data-duration="0.84" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-51-0">for </span><span class="w" id="cw-51-1">a </span><span class="w" id="cw-51-2">one-page</span></div></div>
+  <div id="cg-52" class="cg clip" data-start="43.86" data-duration="0.73" data-track-index="20"><div class="cg-inner"><span class="w" id="cw-52-0">checklist</span></div></div>
+<!-- CAPTIONS:END -->
+  </div>
+
+  <div id="safe-guide"><div style="left:0;top:0;width:1080px;height:250px"></div><div style="left:0;top:1500px;width:1080px;height:420px"></div>
+    <div style="left:960px;top:1000px;width:120px;height:500px"></div><div class="face" style="left:180px;top:560px;width:500px;height:740px"></div></div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+const { lgIn, lgOut, pop, dim, mark, pageTo, camSet, punch, creep, count, type } = reelKit(tl);
+const S0 = 852 / 1179;                       // article: screenshot px -> window px
+camSet(0, 1.0);
+
+/* BEATS:START */
+// hook
+lgIn('#series .lg', 0.15); lgOut('#series .lg', 3.35);
+lgIn('#hook .lg', 0.10); lgOut('#hook .lg', 4.50);
+pop('#hk-stolen', 1.50, { scale: 1.35, y: 0 });
+punch(2.06, 1.04);
+camSet(4.543, 1.0);
+// the real article: headline first, then the lede, highlighted as it is said
+dim(4.56, 17.90);
+tl.set('#a-page', { x: 0, y: -770 * S0, scale: S0 }, 0);
+lgIn('#art .lg', 4.56);
+pageTo('#a-page', 5.70, 0, 2200, S0, 0.8);
+mark('#m1a', 5.98, 0.5);
+mark('#m1b', 7.62, 0.6);
+pageTo('#a-page', 8.30, 0, 2270, S0 * 1.08, 0.9);
+mark('#m2a', 8.84, 0.45);
+mark('#m2b', 9.20, 0.3);
+lgOut('#art .lg', 10.18);
+// the trick
+lgIn('#trick .lg', 10.30);
+pop('#popup', 11.60, { y: -24, scale: 0.92 });
+pop('#ring-url', 13.15, { scale: 1.15 });
+pop('#ring-lock', 14.02, { scale: 1.4 });
+tl.to(['#ring-url', '#ring-lock'], { opacity: 0, duration: 0.18 }, 15.66); tl.set(['#ring-url', '#ring-lock'], { opacity: 0 }, 15.86);
+pop('#pop-outline', 15.90, { scale: 1.04 });
+pop('#pop-callout', 16.14, { y: 14 });
+lgOut('#trick .lg', 17.90);
+// so: the URL is not enough; two tests
+lgIn('#urlno .lg', 17.96); lgOut('#urlno .lg', 20.22);
+lgIn('#two .lg', 20.10);
+punch(20.30, 1.06);
+// test 1: drag
+dim(21.24, 27.66);
+camSet(21.233, 1.0);
+lgIn('#drag .lg', 21.24);
+pop('#w-real', 21.60); pop('#w-fake', 21.75);
+pop('#c-real', 21.98, { x: -20, y: 20 }); pop('#c-fake', 21.98, { x: -20, y: 20 });
+tl.to(['#w-real', '#c-real'], { x: 486, duration: 1.1, ease: 'power2.inOut' }, 23.20);
+pop('#v-real', 24.10, { y: -12 });
+tl.to(['#w-fake', '#c-fake'], { x: 232, duration: 0.8, ease: 'power3.out' }, 25.62);
+tl.fromTo('#w-fake', { boxShadow: 'inset 0 0 0 3px #ef4444' }, { boxShadow: 'inset 0 0 0 3px #ef4444, 0 0 40px #ef4444', duration: 0.3, yoyo: true, repeat: 1 }, 26.40);
+pop('#v-fake', 26.52, { y: 12 });
+lgOut('#drag .lg', 27.66);
+// test 2
+lgIn('#pm .lg', 27.70); lgOut('#pm .lg', 29.86);
+lgIn('#pm2 .lg', 29.90, { stagger: 0 });
+pop('#r1', 30.02, { x: -20 });
+pop('#r2', 31.32, { x: -20 });
+lgOut('#pm2 .lg', 33.08);
+// best fix
+camSet(33.123, 1.0);
+lgIn('#f1', 34.00); lgIn('#f2', 35.48); lgIn('#f3', 36.82);
+punch(34.12, 1.05);
+lgOut('#f1', 38.60); lgOut('#f2', 38.60); lgOut('#f3', 38.60);
+// share + CTA
+camSet(38.663, 1.0);
+lgIn('#send .lg', 38.70); lgOut('#send .lg', 41.80);
+lgIn('#cta .lg', 41.85);
+/* BEATS:END */
+
+/* CAPTIONS:START */
+tl.fromTo('#cg-0 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},0.18);
+tl.fromTo('#cw-0-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},0.48);tl.to('#cw-0-1',{color:'#ffffff',duration:0.08},1);
+tl.fromTo('#cw-0-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},1);tl.to('#cw-0-2',{color:'#ffffff',duration:0.08},1.38);
+tl.fromTo('#cg-1 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},1.38);
+tl.fromTo('#cw-1-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},1.42);tl.to('#cw-1-0',{color:'#ffffff',duration:0.08},1.54);
+tl.fromTo('#cw-1-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},1.54);tl.to('#cw-1-1',{color:'#ffffff',duration:0.08},1.9);
+tl.fromTo('#cw-1-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},1.9);tl.to('#cw-1-2',{color:'#ffffff',duration:0.08},2.02);
+tl.fromTo('#cg-2 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},2.02);
+tl.fromTo('#cw-2-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},2.06);tl.to('#cw-2-0',{color:'#ffffff',duration:0.08},2.44);
+tl.fromTo('#cg-3 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},2.44);
+tl.fromTo('#cw-3-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},2.48);tl.to('#cw-3-0',{color:'#ffffff',duration:0.08},3.14);
+tl.fromTo('#cw-3-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},3.14);tl.to('#cw-3-1',{color:'#ffffff',duration:0.08},3.69);
+tl.fromTo('#cg-4 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},3.7);
+tl.fromTo('#cw-4-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},3.74);tl.to('#cw-4-0',{color:'#ffffff',duration:0.08},3.98);
+tl.fromTo('#cw-4-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},3.98);tl.to('#cw-4-1',{color:'#ffffff',duration:0.08},4.45);
+tl.fromTo('#cg-5 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},4.72);
+tl.fromTo('#cw-5-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},4.76);tl.to('#cw-5-0',{color:'#ffffff',duration:0.08},5.26);
+tl.fromTo('#cw-5-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},5.26);tl.to('#cw-5-1',{color:'#ffffff',duration:0.08},5.52);
+tl.fromTo('#cw-5-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},5.52);tl.to('#cw-5-2',{color:'#ffffff',duration:0.08},5.94);
+tl.fromTo('#cg-6 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},5.94);
+tl.fromTo('#cw-6-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},6.28);tl.to('#cw-6-1',{color:'#ffffff',duration:0.08},7.04);
+tl.fromTo('#cg-7 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},7.04);
+tl.fromTo('#cw-7-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},7.08);tl.to('#cw-7-0',{color:'#ffffff',duration:0.08},7.62);
+tl.fromTo('#cg-8 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},7.62);
+tl.fromTo('#cw-8-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},7.66);tl.to('#cw-8-0',{color:'#ffffff',duration:0.08},8.02);
+tl.fromTo('#cg-9 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},8.02);
+tl.fromTo('#cw-9-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},8.06);tl.to('#cw-9-0',{color:'#ffffff',duration:0.08},8.24);
+tl.fromTo('#cw-9-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},8.24);tl.to('#cw-9-1',{color:'#ffffff',duration:0.08},8.84);
+tl.fromTo('#cw-9-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},8.84);tl.to('#cw-9-2',{color:'#ffffff',duration:0.08},9.4);
+tl.fromTo('#cg-10 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},9.4);
+tl.fromTo('#cw-10-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},9.44);tl.to('#cw-10-0',{color:'#ffffff',duration:0.08},9.62);
+tl.fromTo('#cw-10-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},9.62);tl.to('#cw-10-1',{color:'#ffffff',duration:0.08},10.13);
+tl.fromTo('#cg-11 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},10.4);
+tl.fromTo('#cw-11-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},10.44);tl.to('#cw-11-0',{color:'#ffffff',duration:0.08},10.56);
+tl.fromTo('#cw-11-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},10.56);tl.to('#cw-11-1',{color:'#ffffff',duration:0.08},11.11);
+tl.fromTo('#cg-12 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},11.34);
+tl.fromTo('#cw-12-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},11.38);tl.to('#cw-12-0',{color:'#ffffff',duration:0.08},11.5);
+tl.fromTo('#cw-12-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},11.5);tl.to('#cw-12-1',{color:'#ffffff',duration:0.08},11.76);
+tl.fromTo('#cw-12-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},11.76);tl.to('#cw-12-2',{color:'#ffffff',duration:0.08},12.26);
+tl.fromTo('#cg-13 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},12.26);
+tl.fromTo('#cw-13-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},12.3);tl.to('#cw-13-0',{color:'#ffffff',duration:0.08},12.5);
+tl.fromTo('#cg-14 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},13.16);
+tl.fromTo('#cw-14-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},13.2);tl.to('#cw-14-0',{color:'#ffffff',duration:0.08},13.58);
+tl.fromTo('#cw-14-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},13.58);tl.to('#cw-14-1',{color:'#ffffff',duration:0.08},14.04);
+tl.fromTo('#cg-15 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},14.04);
+tl.fromTo('#cw-15-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},14.08);tl.to('#cw-15-0',{color:'#ffffff',duration:0.08},14.81);
+tl.fromTo('#cg-16 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},14.88);
+tl.fromTo('#cw-16-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},14.92);tl.to('#cw-16-0',{color:'#ffffff',duration:0.08},15.06);
+tl.fromTo('#cw-16-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},15.06);tl.to('#cw-16-1',{color:'#ffffff',duration:0.08},15.24);
+tl.fromTo('#cw-16-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},15.24);tl.to('#cw-16-2',{color:'#ffffff',duration:0.08},15.63);
+tl.fromTo('#cg-17 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},15.88);
+tl.fromTo('#cw-17-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},15.92);tl.to('#cw-17-0',{color:'#ffffff',duration:0.08},16.14);
+tl.fromTo('#cw-17-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},16.14);tl.to('#cw-17-1',{color:'#ffffff',duration:0.08},16.6);
+tl.fromTo('#cw-17-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},16.6);tl.to('#cw-17-2',{color:'#ffffff',duration:0.08},17.14);
+tl.fromTo('#cg-18 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},17.14);
+tl.fromTo('#cw-18-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},17.18);tl.to('#cw-18-0',{color:'#ffffff',duration:0.08},17.32);
+tl.fromTo('#cw-18-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},17.32);tl.to('#cw-18-1',{color:'#ffffff',duration:0.08},17.85);
+tl.fromTo('#cg-19 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},18.12);
+tl.fromTo('#cw-19-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},18.16);tl.to('#cw-19-0',{color:'#ffffff',duration:0.08},18.3);
+tl.fromTo('#cw-19-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},18.3);tl.to('#cw-19-1',{color:'#ffffff',duration:0.08},18.58);
+tl.fromTo('#cw-19-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},18.58);tl.to('#cw-19-2',{color:'#ffffff',duration:0.08},18.7);
+tl.fromTo('#cg-20 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},18.7);
+tl.fromTo('#cw-20-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},18.74);tl.to('#cw-20-0',{color:'#ffffff',duration:0.08},19.28);
+tl.fromTo('#cw-20-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},19.28);tl.to('#cw-20-1',{color:'#ffffff',duration:0.08},19.52);
+tl.fromTo('#cw-20-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},19.52);tl.to('#cw-20-2',{color:'#ffffff',duration:0.08},20.11);
+tl.fromTo('#cg-21 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},20.26);
+tl.fromTo('#cg-22 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},21.4);
+tl.fromTo('#cw-22-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},21.44);tl.to('#cw-22-0',{color:'#ffffff',duration:0.08},21.89);
+tl.fromTo('#cg-23 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},21.94);
+tl.fromTo('#cw-23-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},21.98);tl.to('#cw-23-0',{color:'#ffffff',duration:0.08},22.2);
+tl.fromTo('#cw-23-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},22.2);tl.to('#cw-23-1',{color:'#ffffff',duration:0.08},22.32);
+tl.fromTo('#cw-23-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},22.32);tl.to('#cw-23-2',{color:'#ffffff',duration:0.08},22.97);
+tl.fromTo('#cg-24 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},23.1);
+tl.fromTo('#cw-24-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},23.14);tl.to('#cw-24-0',{color:'#ffffff',duration:0.08},23.24);
+tl.fromTo('#cw-24-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},23.24);tl.to('#cw-24-1',{color:'#ffffff',duration:0.08},23.48);
+tl.fromTo('#cw-24-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},23.48);tl.to('#cw-24-2',{color:'#ffffff',duration:0.08},24.09);
+tl.fromTo('#cg-25 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},24.14);
+tl.fromTo('#cw-25-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},24.18);tl.to('#cw-25-0',{color:'#ffffff',duration:0.08},24.74);
+tl.fromTo('#cw-25-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},24.74);tl.to('#cw-25-1',{color:'#ffffff',duration:0.08},24.92);
+tl.fromTo('#cg-26 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},24.98);
+tl.fromTo('#cw-26-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},25.02);tl.to('#cw-26-0',{color:'#ffffff',duration:0.08},25.58);
+tl.fromTo('#cg-27 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},25.58);
+tl.fromTo('#cw-27-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},25.62);tl.to('#cw-27-0',{color:'#ffffff',duration:0.08},25.74);
+tl.fromTo('#cw-27-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},26.02);tl.to('#cw-27-2',{color:'#ffffff',duration:0.08},26.24);
+tl.fromTo('#cg-28 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},26.24);
+tl.fromTo('#cw-28-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},26.28);tl.to('#cw-28-0',{color:'#ffffff',duration:0.08},26.52);
+tl.fromTo('#cw-28-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},26.52);tl.to('#cw-28-1',{color:'#ffffff',duration:0.08},26.8);
+tl.fromTo('#cw-28-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},26.8);tl.to('#cw-28-2',{color:'#ffffff',duration:0.08},26.9);
+tl.fromTo('#cg-29 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},26.9);
+tl.fromTo('#cw-29-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},26.94);tl.to('#cw-29-0',{color:'#ffffff',duration:0.08},27.08);
+tl.fromTo('#cw-29-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},27.08);tl.to('#cw-29-1',{color:'#ffffff',duration:0.08},27.59);
+tl.fromTo('#cg-30 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},27.86);
+tl.fromTo('#cw-30-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},27.9);tl.to('#cw-30-0',{color:'#ffffff',duration:0.08},28.28);
+tl.fromTo('#cg-31 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},28.28);
+tl.fromTo('#cw-31-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},28.32);tl.to('#cw-31-0',{color:'#ffffff',duration:0.08},28.46);
+tl.fromTo('#cw-31-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},28.46);tl.to('#cw-31-1',{color:'#ffffff',duration:0.08},28.58);
+tl.fromTo('#cg-32 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},28.84);
+tl.fromTo('#cw-32-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},29.22);tl.to('#cw-32-1',{color:'#ffffff',duration:0.08},29.86);
+tl.fromTo('#cg-33 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},29.86);
+tl.fromTo('#cw-33-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},29.9);tl.to('#cw-33-0',{color:'#ffffff',duration:0.08},30.02);
+tl.fromTo('#cw-33-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},30.02);tl.to('#cw-33-1',{color:'#ffffff',duration:0.08},30.28);
+tl.fromTo('#cw-33-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},30.28);tl.to('#cw-33-2',{color:'#ffffff',duration:0.08},30.38);
+tl.fromTo('#cg-34 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},30.38);
+tl.fromTo('#cw-34-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},30.42);tl.to('#cw-34-0',{color:'#ffffff',duration:0.08},30.76);
+tl.fromTo('#cw-34-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},30.76);tl.to('#cw-34-1',{color:'#ffffff',duration:0.08},31.28);
+tl.fromTo('#cg-35 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},31.28);
+tl.fromTo('#cw-35-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},31.32);tl.to('#cw-35-0',{color:'#ffffff',duration:0.08},31.42);
+tl.fromTo('#cw-35-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},31.42);tl.to('#cw-35-1',{color:'#ffffff',duration:0.08},32.01);
+tl.fromTo('#cg-36 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},32.16);
+tl.fromTo('#cw-36-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},32.2);tl.to('#cw-36-0',{color:'#ffffff',duration:0.08},32.44);
+tl.fromTo('#cw-36-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},32.44);tl.to('#cw-36-1',{color:'#ffffff',duration:0.08},32.56);
+tl.fromTo('#cw-36-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},32.56);tl.to('#cw-36-2',{color:'#ffffff',duration:0.08},33.03);
+tl.fromTo('#cg-37 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},33.3);
+tl.fromTo('#cw-37-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},33.34);tl.to('#cw-37-0',{color:'#ffffff',duration:0.08},33.58);
+tl.fromTo('#cw-37-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},33.58);tl.to('#cw-37-1',{color:'#ffffff',duration:0.08},34.08);
+tl.fromTo('#cg-38 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},34.08);
+tl.fromTo('#cw-38-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},34.12);tl.to('#cw-38-0',{color:'#ffffff',duration:0.08},34.46);
+tl.fromTo('#cw-38-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},34.46);tl.to('#cw-38-1',{color:'#ffffff',duration:0.08},34.58);
+tl.fromTo('#cw-38-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},34.58);tl.to('#cw-38-2',{color:'#ffffff',duration:0.08},34.8);
+tl.fromTo('#cg-39 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},34.8);
+tl.fromTo('#cw-39-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},34.84);tl.to('#cw-39-0',{color:'#ffffff',duration:0.08},35.45);
+tl.fromTo('#cg-40 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},35.56);
+tl.fromTo('#cw-40-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},35.6);tl.to('#cw-40-0',{color:'#ffffff',duration:0.08},35.88);
+tl.fromTo('#cw-40-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},35.88);tl.to('#cw-40-1',{color:'#ffffff',duration:0.08},36.22);
+tl.fromTo('#cw-40-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},36.22);tl.to('#cw-40-2',{color:'#ffffff',duration:0.08},36.32);
+tl.fromTo('#cg-41 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},36.32);
+tl.fromTo('#cw-41-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},36.36);tl.to('#cw-41-0',{color:'#ffffff',duration:0.08},36.66);
+tl.fromTo('#cg-42 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},36.66);
+tl.fromTo('#cw-42-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},36.7);tl.to('#cw-42-0',{color:'#ffffff',duration:0.08},36.94);
+tl.fromTo('#cw-42-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},36.94);tl.to('#cw-42-1',{color:'#ffffff',duration:0.08},37.04);
+tl.fromTo('#cg-43 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},37.6);
+tl.fromTo('#cw-43-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},37.64);tl.to('#cw-43-0',{color:'#ffffff',duration:0.08},37.8);
+tl.fromTo('#cw-43-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},37.8);tl.to('#cw-43-1',{color:'#ffffff',duration:0.08},38);
+tl.fromTo('#cw-43-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},38);tl.to('#cw-43-2',{color:'#ffffff',duration:0.08},38.57);
+tl.fromTo('#cg-44 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},38.84);
+tl.fromTo('#cw-44-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},38.88);tl.to('#cw-44-0',{color:'#ffffff',duration:0.08},39.06);
+tl.fromTo('#cw-44-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},39.06);tl.to('#cw-44-1',{color:'#ffffff',duration:0.08},39.22);
+tl.fromTo('#cw-44-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},39.22);tl.to('#cw-44-2',{color:'#ffffff',duration:0.08},39.3);
+tl.fromTo('#cg-45 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},39.3);
+tl.fromTo('#cw-45-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},39.34);tl.to('#cw-45-0',{color:'#ffffff',duration:0.08},39.42);
+tl.fromTo('#cw-45-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},39.42);tl.to('#cw-45-1',{color:'#ffffff',duration:0.08},39.84);
+tl.fromTo('#cw-45-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},39.84);tl.to('#cw-45-2',{color:'#ffffff',duration:0.08},39.94);
+tl.fromTo('#cg-46 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},39.94);
+tl.fromTo('#cw-46-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},39.98);tl.to('#cw-46-0',{color:'#ffffff',duration:0.08},40.38);
+tl.fromTo('#cw-46-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},40.38);tl.to('#cw-46-1',{color:'#ffffff',duration:0.08},41.12);
+tl.fromTo('#cw-46-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},41.12);tl.to('#cw-46-2',{color:'#ffffff',duration:0.08},41.3);
+tl.fromTo('#cg-47 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},41.3);
+tl.fromTo('#cw-47-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},41.34);tl.to('#cw-47-0',{color:'#ffffff',duration:0.08},41.78);
+tl.fromTo('#cg-48 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},41.78);
+tl.fromTo('#cw-48-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},41.82);tl.to('#cw-48-0',{color:'#ffffff',duration:0.08},42.08);
+tl.fromTo('#cw-48-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},42.08);tl.to('#cw-48-1',{color:'#ffffff',duration:0.08},42.34);
+tl.fromTo('#cg-49 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},42.4);
+tl.fromTo('#cw-49-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},42.44);tl.to('#cw-49-0',{color:'#ffffff',duration:0.08},42.58);
+tl.fromTo('#cg-50 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},42.58);
+tl.fromTo('#cg-51 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},43.02);
+tl.fromTo('#cw-51-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},43.06);tl.to('#cw-51-0',{color:'#ffffff',duration:0.08},43.22);
+tl.fromTo('#cw-51-1',{color:'#ffffff'},{color:'#5eead4',duration:0.05},43.22);tl.to('#cw-51-1',{color:'#ffffff',duration:0.08},43.46);
+tl.fromTo('#cw-51-2',{color:'#ffffff'},{color:'#5eead4',duration:0.05},43.46);tl.to('#cw-51-2',{color:'#ffffff',duration:0.08},43.86);
+tl.fromTo('#cg-52 .cg-inner',{opacity:0,y:14},{opacity:1,y:0,duration:0.16,ease:'power2.out'},43.86);
+tl.fromTo('#cw-52-0',{color:'#ffffff'},{color:'#5eead4',duration:0.05},43.9);tl.to('#cw-52-0',{color:'#ffffff',duration:0.08},44.59);
+/* CAPTIONS:END */
+
+window.__timelines = window.__timelines || {};
+window.__timelines['reel'] = tl;
+</script>
+</div>
+</body></html>
